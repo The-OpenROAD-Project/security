@@ -91,6 +91,13 @@ class TestBlock(unittest.TestCase):
     def test_lib_fails(self):
         self.do_test_bad_file('foo.lib')
 
+    def test_gz_fails(self):
+        self.do_test_bad_file('foo.gz')
+        self.do_test_bad_file('foo.tgz')
+
+    def test_gz_fails(self):
+        self.do_test_bad_file('foo.tar')
+
     def test_tsmc_fails(self):
         self.do_test_bad_file('tsmc65lp')
 

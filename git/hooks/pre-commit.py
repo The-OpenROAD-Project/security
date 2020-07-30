@@ -26,6 +26,8 @@ blocked_path_patterns = [
     r"\.v",
     r"\.db",
     r"\.lib",
+    r"\.t?gz",
+    r"\.tar",
     r"tsmc",
     r"gf\d+",
     r"\d+lp",  # Invecus
