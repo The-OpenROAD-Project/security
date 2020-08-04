@@ -101,13 +101,6 @@ skip_content_patterns = [
     r"^tools/OpenROAD/src/replace/README.md$",
     r"^tools/yosys/",
     r"^\.git/",
-
-    ## THESE SHOULD BE FIXED / REMOVED
-    r"^flow/Makefile$",
-    r"^flow/designs/gf14/",
-    r"^flow/designs/tsmc65lp/",
-    r"^flow/util/cell-veneer",
-
     ## BINARIES
     r"/FlexRoute$",  # fastroute (to be removed by Eder)
     r"/ntuplace3$",  # replace
