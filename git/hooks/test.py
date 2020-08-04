@@ -64,7 +64,7 @@ class TestBlock(unittest.TestCase):
         self.add_file("test_file", content)
         with self.assertRaises(SystemExit) as e:
             precommit.main(args)
-        self.assertIn('blocked content pattern', str(e.exception))
+        self.assertIn('contains blocked content', str(e.exception))
 
     ## Blocked / allowed paths tests ##
     def test_gf12_fails(self):
