@@ -218,7 +218,7 @@ def main(args):
     except:
         error('Not running in git repo: {}'.format(os.getcwd()))
 
-    print(top = {}'.format(top))
+    print('top = {}'.format(top))
 
 
     # Make sure we are running from the root (always true as a hook
