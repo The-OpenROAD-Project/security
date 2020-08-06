@@ -12,6 +12,8 @@ for line in sys.stdin:
     if 'q' == line.rstrip(): 
         break
     print(f'Input : {line}') 
+    tokens = line.split()
+    print("tokens[0]={}",tokens[0])
   
 print("Exit") 
 exit(1)
