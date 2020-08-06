@@ -210,7 +210,7 @@ def local(top, args):
 
 
 def main(args):
-    print(pwd = {}'.format(os.getcwd()))
+    print('pwd = {}'.format(os.getcwd()))
 
     # Make sure this is running from the top level of the repo
     try:
