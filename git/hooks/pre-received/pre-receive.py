@@ -210,11 +210,16 @@ def local(top, args):
 
 
 def main(args):
+    print(pwd = {}'.format(os.getcwd()))
+
     # Make sure this is running from the top level of the repo
     try:
         top = run_command('git rev-parse --show-toplevel')[0]
     except:
         error('Not running in git repo: {}'.format(os.getcwd()))
+
+    print(top = {}'.format(top))
+
 
     # Make sure we are running from the root (always true as a hook
     # but not if run manually)
