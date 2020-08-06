@@ -6,7 +6,7 @@ import re
 import sys
 import os
 
-print("Running pre-commit security hook....")import sys 
+print("Running pre-commit security hook....")
   
 for line in sys.stdin: 
     if 'q' == line.rstrip(): 
