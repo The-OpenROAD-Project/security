@@ -30,7 +30,7 @@ blocked_path_patterns = [
     r"\.tar",
     r"tsmc",
     r"gf\d+",
-    r"\d+lp",  # Invecus
+    r"\d+lp",  # Invecas
     r"sc\d+",  # ARM-style names
 ]
 
