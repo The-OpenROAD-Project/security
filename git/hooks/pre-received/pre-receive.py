@@ -14,4 +14,4 @@ for line in sys.stdin:
     print(f'Input : {line}') 
   
 print("Exit") 
-exit(0)
+exit(1)
