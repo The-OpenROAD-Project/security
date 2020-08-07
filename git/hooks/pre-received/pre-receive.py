@@ -23,6 +23,8 @@ for line in sys.stdin:
     newsha = tokens[1]
     refname = tokens[2]
     print("oldsha={} newsha={} refname={}",oldsha, newsha, refname)
+    print("GITHUB_PULL_REQUEST_HEAD={}",os.environ['GITHUB_PULL_REQUEST_HEAD'])
+    print("GITHUB_PULL_REQUEST_BASE={}",os.environ['GITHUB_PULL_REQUEST_BASE'])
     print("GIT_DIR={}",os.environ['GIT_DIR'])
     print(run_command_locally("git diff " + oldsha + " " + newsha))
     print(run_command_locally("git diff " + oldsha))
