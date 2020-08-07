@@ -6,6 +6,10 @@ import re
 import sys
 import os
 
+def run_command_locally(command):
+        print("command=",command)
+            subprocess.run(shlex.split(command), stdout=subprocess.PIPE).stdout.decode('utf-8')
+
 print("Running pre-commit security hook....")
   
 for line in sys.stdin: 
@@ -17,7 +21,7 @@ for line in sys.stdin:
     newsha = tokens[1]
     refname = tokens[2]
     print("oldsha={} newsha={} refname={}",oldsha, newsha, refname)
-    git diff old_sha new_sha
+    run_command_locally("git diff " + old_sha + " " + new_sha)
   
 print("Exit") 
 exit(1)
