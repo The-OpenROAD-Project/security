@@ -7,8 +7,8 @@ import sys
 import os
 
 def run_command_locally(command):
-        print("command=",command)
-            subprocess.run(shlex.split(command), stdout=subprocess.PIPE).stdout.decode('utf-8')
+    print("command=",command)
+    subprocess.run(shlex.split(command), stdout=subprocess.PIPE).stdout.decode('utf-8')
 
 print("Running pre-commit security hook....")
   
