@@ -12,7 +12,8 @@ def run_command_locally(command):
     subprocess.run(shlex.split(command), stdout=subprocess.PIPE).stdout.decode('utf-8')
 
 print("Running pre-commit security hook....")
-  
+# https://docs.github.com/en/enterprise/2.21/admin/policies/creating-a-pre-receive-hook-script
+
 for line in sys.stdin: 
     if 'q' == line.rstrip(): 
         break
