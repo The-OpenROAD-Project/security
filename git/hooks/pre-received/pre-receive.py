@@ -23,6 +23,8 @@ for line in sys.stdin:
     refname = tokens[2]
     print("oldsha={} newsha={} refname={}",oldsha, newsha, refname)
     print(run_command_locally("git diff " + oldsha + " " + newsha))
+    print(run_command_locally("git diff " + oldsha))
+    print(run_command_locally("git diff " + newsha))
   
 print("Exit") 
 exit(1)
