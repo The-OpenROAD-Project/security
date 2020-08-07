@@ -12,6 +12,8 @@ def run_command_locally(command):
     subprocess.run(shlex.split(command), stdout=subprocess.PIPE).stdout.decode('utf-8')
 
 print("Running pre-commit security hook....")
+print("GIT_DIR={}",os.environ['GIT_DIR'])
+print(run_command_locally("git diff"))
   
 for line in sys.stdin: 
     if 'q' == line.rstrip(): 
@@ -26,7 +28,6 @@ for line in sys.stdin:
     print(run_command_locally("git diff " + oldsha))
     print(run_command_locally("git diff " + newsha))
     print(run_command_locally("git show-ref " + refname))
-    print("GIT_DIR={}",os.environ['GIT_DIR'])
   
 print("Exit") 
 exit(1)
