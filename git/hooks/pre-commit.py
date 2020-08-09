@@ -102,10 +102,6 @@ skip_content_patterns = [
     r"^tools/OpenROAD/src/replace/README.md$",
     r"^tools/yosys/",
     r"^\.git/",
-    ## BINARIES
-    r"/FlexRoute$",  # fastroute (to be removed by Eder)
-    r"/ntuplace3$",  # replace
-    r"/ntuplace4h$", # replace
 ]
 
 
