@@ -82,6 +82,7 @@ block_content_patterns = \
      | tsmc       # eg tsmc65lp
      | \d+lp      # eg 12LP (for Invecus)
      | \barm\b    # eg ARM
+     | cln\d+     # eg CLN65 (for ARM)
     """, re.VERBOSE | re.IGNORECASE)
 
 # Files to skip content checks on
