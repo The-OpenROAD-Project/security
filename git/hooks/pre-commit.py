@@ -32,6 +32,7 @@ blocked_path_patterns = [
     r"gf\d+",
     r"\d+lp",  # Invecas
     r"sc\d+",  # ARM-style names
+    r"cln\d+", # eg CLN65 (for ARM)
 ]
 
 # Allowed paths are exceptions to blocked paths above.

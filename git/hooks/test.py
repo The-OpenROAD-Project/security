@@ -101,6 +101,9 @@ class TestBlock(unittest.TestCase):
     def test_tsmc_fails(self):
         self.do_test_bad_file('tsmc65lp')
 
+    def test_tsmc_fails(self):
+        self.do_test_bad_file('cln12.lef')
+
     def test_arm_fails(self):
         self.do_test_bad_file('sc9mcpp84_12lp_base_rvt')
 
@@ -153,6 +156,8 @@ class TestBlock(unittest.TestCase):
     def test_tsmc_content_fails(self):
         self.do_test_bad_content('\n\n\n  tsmc')
 
+    def test_tsmc_content_fails(self):
+        self.do_test_bad_content('\n\n\n  CLN65')        
 
 if __name__ == '__main__':
     unittest.main()
