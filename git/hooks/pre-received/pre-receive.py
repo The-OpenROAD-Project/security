@@ -32,4 +32,4 @@ for line in sys.stdin:
     print(run_command_locally("git show-ref " + refname))
   
 print("Exit") 
-exit(1)
+exit(0)
