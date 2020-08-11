@@ -25,6 +25,7 @@ def run_command_locally(command):
 github_remote_prefix = "git@github.com:The-OpenROAD-Project/"
 gite_remote_prefix = "git@gite.openroad.tools:The-OpenROAD-Project-Private/"
 repo_names = [
+    "OpenDB.git",
     "OpenROAD.git",
     "OpenROAD-flow.git",
     "TritonRoute.git"
@@ -32,15 +33,18 @@ repo_names = [
 work_dir = os.getcwd()
 print("running in working dir ", work_dir)
 print("path to script=",os.path.dirname(os.path.realpath(__file__)))
-
-run_command_locally("git clone --branch openroad " + github_remote_prefix + "OpenROAD.git")
-os.chdir("OpenROAD")
+repo = repo_names[0]
+print("repo=",repo)
+run_command_locally("git clone --branch openroad " + github_remote_prefix + repo)
+os.chdir(repo.split(".")[0])
 #origin remote is github
 run_command_locally("git remote -v")
-run_command_locally("git remote add gite " + gite_remote_prefix + "OpenROAD.git")
+run_command_locally("git remote add gite " + gite_remote_prefix + repo)
 #gite remote is gite.openroad.tools
 run_command_locally("git remote -v")
 run_command_locally("git pull gite openroad")
+#this next line doesn't work, need to change default remote first
+run_command_locally("git pull gite")
 
 #copy to new remote for first time
 #git remote rename origin github_origin
