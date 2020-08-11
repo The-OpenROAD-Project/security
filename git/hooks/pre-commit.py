@@ -30,8 +30,9 @@ blocked_path_patterns = [
     r"\.tar",
     r"tsmc",
     r"gf\d+",
-    r"\d+lp",  # Invecus
+    r"\d+lp",  # Invecas
     r"sc\d+",  # ARM-style names
+    r"cln\d+", # eg CLN65 (for ARM)
 ]
 
 # Allowed paths are exceptions to blocked paths above.
@@ -82,6 +83,7 @@ block_content_patterns = \
      | tsmc       # eg tsmc65lp
      | \d+lp      # eg 12LP (for Invecus)
      | \barm\b    # eg ARM
+     | cln\d+     # eg CLN65 (for ARM)
     """, re.VERBOSE | re.IGNORECASE)
 
 # Files to skip content checks on
@@ -101,10 +103,6 @@ skip_content_patterns = [
     r"^tools/OpenROAD/src/replace/README.md$",
     r"^tools/yosys/",
     r"^\.git/",
-    ## BINARIES
-    r"/FlexRoute$",  # fastroute (to be removed by Eder)
-    r"/ntuplace3$",  # replace
-    r"/ntuplace4h$", # replace
 ]
 
 
