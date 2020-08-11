@@ -26,9 +26,9 @@ for line in sys.stdin:
     print("GITHUB_PULL_REQUEST_HEAD={}",os.environ['GITHUB_PULL_REQUEST_HEAD'])
     print("GITHUB_PULL_REQUEST_BASE={}",os.environ['GITHUB_PULL_REQUEST_BASE'])
     print("GIT_DIR={}",os.environ['GIT_DIR'])
-    print(run_command_locally("git diff " + oldsha + " " + newsha))
-    print(run_command_locally("git diff " + oldsha))
-    print(run_command_locally("git diff " + newsha))
+    #print(run_command_locally("git diff " + oldsha + " " + newsha))
+    #print(run_command_locally("git diff " + oldsha))
+    #print(run_command_locally("git diff " + newsha))
     print(run_command_locally("git show-ref " + refname))
   
 print("Exit") 
