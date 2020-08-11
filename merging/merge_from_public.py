@@ -42,4 +42,9 @@ run_command_locally("git remote add gite " + gite_remote_prefix + "OpenROAD.git"
 run_command_locally("git remote -v")
 run_command_locally("git pull gite openroad")
 
+#copy to new remote for first time
+#git remote rename origin github_origin
+#git remote add origin git@gite.openroad.tools:The-OpenROAD-Project-Private/OpenROAD.git
+#git push origin master
+
 
