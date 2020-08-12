@@ -52,10 +52,10 @@ for repo in repo_names:
     #gite remote is gite.openroad.tools
     run_command_locally("git remote -v")
 
-    #pull from new origin, automatically merges
+    #pull from new origin gite, automatically merges
     run_command_locally("git pull")
 
-    #push to gite which is origin
+    #push to origin which is gite
     run_command_locally("git push")
     
 
