@@ -61,9 +61,9 @@ for repo in repo_names:
     for branch in branches:
         branch = remove_prefix(branch,"remotes/origin/")
         print("working on " + branch)
-        run_command_locally("git checkout -b " + branch)
+        run_command_locally("git checkout -f " + branch)
         #pull from new origin gite, automatically merges
-        run_command_locally("git pull origin/" + branch + " " + branch)
+        run_command_locally("git pull origin " + branch)
 
     #origin remote is github
     run_command_locally("git remote -v")
@@ -75,6 +75,6 @@ for repo in repo_names:
     run_command_locally("git remote -v")
 
     #push to origin which is gite
-    #run_command_locally("git push --all origin")
+    run_command_locally("git push --all origin")
     
 
