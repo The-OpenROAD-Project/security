@@ -16,39 +16,46 @@ def which(pgm):
 def check_exists(pgm):
     if which(pgm) == None:
         print(pgm, "not on path")
+        return False
+    return True
 
 
 def run_command_locally(command):
     print("command=",command)
     print(subprocess.run(shlex.split(command), stdout=subprocess.PIPE).stdout.decode('utf-8'))
 
+if not check_exists("git"):
+    exit(0)
+
 github_remote_prefix = "git@github.com:The-OpenROAD-Project/"
 gite_remote_prefix = "git@gite.openroad.tools:The-OpenROAD-Project-Private/"
 repo_names = [
     "OpenDB.git",
-    "OpenROAD.git",
-    "OpenROAD-flow.git",
-    "TritonRoute.git"
+#    "OpenROAD.git",
+#    "OpenROAD-flow.git",
+#    "TritonRoute.git"
     ]
 work_dir = os.getcwd()
 print("running in working dir ", work_dir)
 print("path to script=",os.path.dirname(os.path.realpath(__file__)))
-repo = repo_names[0]
-print("repo=",repo)
-run_command_locally("git clone --branch openroad " + github_remote_prefix + repo)
-os.chdir(repo.split(".")[0])
-#origin remote is github
-run_command_locally("git remote -v")
-run_command_locally("git remote add gite " + gite_remote_prefix + repo)
-#gite remote is gite.openroad.tools
-run_command_locally("git remote -v")
-run_command_locally("git pull gite openroad")
-#this next line doesn't work, need to change default remote first
-run_command_locally("git pull gite")
+for repo in repo_names:
+    print("repo=",repo)
+    run_command_locally("git clone --branch openroad " + github_remote_prefix + repo)
+    os.chdir(repo.split(".")[0])
 
-#copy to new remote for first time
-#git remote rename origin github_origin
-#git remote add origin git@gite.openroad.tools:The-OpenROAD-Project-Private/OpenROAD.git
-#git push origin master
+    #origin remote is github
+    run_command_locally("git remote -v")
 
+    #change origin to gite
+    run_command_locally("git remote set-url origin " + gite_remote_prefix + repo)
+
+    #gite remote is gite.openroad.tools
+    run_command_locally("git remote -v")
+
+    #pull from new origin, automatically merges
+    run_command_locally("git pull")
+
+    #push to gite which is origin
+    run_command_locally("git push")
+    
 
