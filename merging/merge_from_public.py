@@ -27,7 +27,6 @@ def check_exists(pgm):
         return False
     return True
 
-
 def run_command_locally(command):
     print("command=",command)
     retval = subprocess.run(shlex.split(command), stdout=subprocess.PIPE).stdout.decode('utf-8')
@@ -54,7 +53,9 @@ for repo in repo_names:
     # fetch all branches
     run_command_locally("git fetch origin")
     branches_raw_nosplit = run_command_locally("git branch -a")
-    # First line is *master, second line is pointer to master remote
+    # First line is * master, second line is pointer to master remote skip them
+    #* master
+    #remotes/origin/HEAD -> origin/master
     branches_raw_split = branches_raw_nosplit.split("\n")[2:-1]
     branches = [item.strip() for item in branches_raw_split]
     print(branches)
@@ -77,4 +78,3 @@ for repo in repo_names:
     #push to origin which is gite
     run_command_locally("git push --all origin")
     
-
