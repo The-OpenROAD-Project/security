@@ -6,6 +6,14 @@ import argparse
 import os
 import shlex
 
+# See for recipe to clone repo with all branches to new remote
+# https://gist.github.com/niksumeiko/8972566
+
+def remove_prefix(text, prefix):
+    if text.startswith(prefix):
+        return text[len(prefix):]
+    return text
+
 def which(pgm):
     path=os.getenv('PATH')
     for p in path.split(os.path.pathsep):
@@ -19,13 +27,13 @@ def check_exists(pgm):
         return False
     return True
 
-
 def run_command_locally(command):
     print("command=",command)
-    print(subprocess.run(shlex.split(command), stdout=subprocess.PIPE).stdout.decode('utf-8'))
-
-if not check_exists("git"):
-    exit(0)
+    retval = subprocess.run(shlex.split(command), stdout=subprocess.PIPE).stdout.decode('utf-8')
+    print(retval)
+    if not check_exists("git"):
+        exit(0)
+    return(retval)
 
 github_remote_prefix = "git@github.com:The-OpenROAD-Project/"
 gite_remote_prefix = "git@gite.openroad.tools:The-OpenROAD-Project-Private/"
@@ -42,19 +50,31 @@ for repo in repo_names:
     print("repo=",repo)
     run_command_locally("git clone " + gite_remote_prefix + repo)
     os.chdir(repo.split(".")[0])
+    # fetch all branches
+    run_command_locally("git fetch origin")
+    branches_raw_nosplit = run_command_locally("git branch -a")
+    # First line is * master, second line is pointer to master remote skip them
+    #* master
+    #remotes/origin/HEAD -> origin/master
+    branches_raw_split = branches_raw_nosplit.split("\n")[2:-1]
+    branches = [item.strip() for item in branches_raw_split]
+    print(branches)
+    for branch in branches:
+        branch = remove_prefix(branch,"remotes/origin/")
+        print("working on " + branch)
+        run_command_locally("git checkout -f " + branch)
+        #pull from new origin gite, automatically merges
+        run_command_locally("git pull origin " + branch)
 
-    #origin remote is gite
+    #origin remote is github
     run_command_locally("git remote -v")
 
-    #change origin to github
+    #change origin to gite
     run_command_locally("git remote set-url origin " + github_remote_prefix + repo)
 
-    #remote is github
+    #remote is gite.openroad.tools
     run_command_locally("git remote -v")
 
-    #pull from new origin github, automatically merges
-    run_command_locally("git pull")
-
-    #push to origin which is github
+    #push to origin which is gite
     run_command_locally("git push --all origin")
     
