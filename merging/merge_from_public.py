@@ -20,5 +20,5 @@ print("running in working dir ", work_dir)
 path_to_script = os.path.dirname(os.path.realpath(__file__))
 print("path to script=",path_to_script)
 
-script_command = path_to_script + "/" + "merge_from_to_remote.py --from_remote " + github_remote_prefix + " --to_remote " + gite_remote_prefix + " --repo_names " + repo_names
+script_command = path_to_script + "/" + "merge_from_to_remote.py --from_remote " + github_remote_prefix + " --to_remote " + gite_remote_prefix + " --repo_names " + repo_names +" --repo_branches master openroad"
 print(run_command_locally(script_command))

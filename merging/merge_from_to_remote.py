@@ -42,20 +42,19 @@ parser = argparse.ArgumentParser(description='Merge all changes from a remote to
 parser.add_argument('--from_remote', dest='from_remote', action='store', help='from / source remote')
 parser.add_argument('--to_remote', dest='to_remote', action='store', help='to / destination remote')
 parser.add_argument('--repo_names', dest='repo_names', action='store', nargs='+', help='repo names')
+parser.add_argument('--repo_branches', dest='repo_branches', action='store', nargs='+', help='repo branches to copy')
+
 args = parser.parse_args()
 from_remote_prefix = args.from_remote
 to_remote_prefix = args.to_remote
 repo_names = args.repo_names
+
+repo_branches = args.repo_branches
 print("from_remote_prefix=", from_remote_prefix)
 print("to_remote_prefix=", to_remote_prefix)
 print("repo_name=", repo_names)
+print("repo_branches=", repo_branches)
 
-#repo_names = [
-#    "OpenDB.git",
-#    "OpenROAD.git",
-#    "OpenROAD-flow.git",
-#    "TritonRoute.git"
-#    ]
 
 work_dir = os.getcwd()
 print("running in working dir ", work_dir)
@@ -66,12 +65,7 @@ for repo in repo_names:
     os.chdir(repo.split(".")[0])
     # fetch all branches
     run_command_locally("git fetch origin")
-    branches_raw_nosplit = run_command_locally("git branch -a")
-    # First line is * master, second line is pointer to master remote skip them
-    #* master
-    #remotes/origin/HEAD -> origin/master
-    branches_raw_split = branches_raw_nosplit.split("\n")[2:-1]
-    branches = [item.strip() for item in branches_raw_split]
+    branches = repo_branches
     print(branches)
     for branch in branches:
         branch = remove_prefix(branch,"remotes/origin/")
@@ -80,15 +74,8 @@ for repo in repo_names:
         #pull from new origin gite, automatically merges
         run_command_locally("git pull origin " + branch)
 
-    #origin remote is github
     run_command_locally("git remote -v")
-
-    #change origin to gite
     run_command_locally("git remote set-url origin " + to_remote_prefix + repo)
-
-    #remote is gite.openroad.tools
     run_command_locally("git remote -v")
-
-    #push to origin which is gite
     print(run_command_locally("git push --all origin"))
     os.chdir("..")    
