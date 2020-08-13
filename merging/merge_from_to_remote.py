@@ -90,5 +90,5 @@ for repo in repo_names:
     run_command_locally("git remote -v")
 
     #push to origin which is gite
-    run_command_locally("git push --all origin")
-    
+    print(run_command_locally("git push --all origin"))
+    os.chdir("..")    
