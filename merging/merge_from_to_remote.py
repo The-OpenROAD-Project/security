@@ -38,27 +38,25 @@ def run_command_locally(command):
 import argparse
 
 # Parse and check arguments
-parser = argparse.ArgumentParser(description='Merge all changes from a remote to a remote for a repo')
-parser.add_argument('--from_remote', dest='from_remote', action='store',
-                    help='from / source remote')
-parser.add_argument('--to_remote', dest='to_remote', action='store',
-                    help='to / destination remote')
-parser.add_argument('--repo_name', dest='repo_name', action='store',
-                    help='repo name')
+parser = argparse.ArgumentParser(description='Merge all changes from a remote to a remote for a repo list')
+parser.add_argument('--from_remote', dest='from_remote', action='store', help='from / source remote')
+parser.add_argument('--to_remote', dest='to_remote', action='store', help='to / destination remote')
+parser.add_argument('--repo_names', dest='repo_names', action='store', nargs='+', help='repo names')
 args = parser.parse_args()
 from_remote_prefix = args.from_remote
 to_remote_prefix = args.to_remote
-repo_name = args.repo_name
+repo_names = args.repo_names
 print("from_remote_prefix=", from_remote_prefix)
 print("to_remote_prefix=", to_remote_prefix)
-print("repo_name=", repo_name)
+print("repo_name=", repo_names)
 
-repo_names = [
-    "OpenDB.git",
+#repo_names = [
+#    "OpenDB.git",
 #    "OpenROAD.git",
 #    "OpenROAD-flow.git",
 #    "TritonRoute.git"
-    ]
+#    ]
+
 work_dir = os.getcwd()
 print("running in working dir ", work_dir)
 print("path to script=",os.path.dirname(os.path.realpath(__file__)))
