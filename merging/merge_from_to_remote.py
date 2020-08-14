@@ -64,7 +64,7 @@ for repo in repo_names:
     run_command_locally("git clone " + from_remote_prefix + repo)
     os.chdir(repo.split(".")[0])
     # fetch all branches
-    run_command_locally("git fetch origin")
+    run_command_locally("git pull")
     branches = repo_branches
     print(branches)
     for branch in branches:
@@ -77,5 +77,6 @@ for repo in repo_names:
     run_command_locally("git remote -v")
     run_command_locally("git remote set-url origin " + to_remote_prefix + repo)
     run_command_locally("git remote -v")
+    run_command_locally("git pull")
     print(run_command_locally("git push --all origin"))
     os.chdir("..")    
