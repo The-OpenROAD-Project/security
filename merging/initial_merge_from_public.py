@@ -13,7 +13,7 @@ def run_command_locally(command):
 
 github_remote_prefix = "git@github.com:The-OpenROAD-Project/"
 gite_remote_prefix = "git@github.com:The-OpenROAD-Project-Private/"
-repo_names = "security.git OpenDB.git OpenRCX.git OpenSTA.git flute3.git OpenROAD.git OpenROAD-flow.git TritonRoute.git yosys.git"
+repo_names = "security.git OpenDB.git OpenRCX.git OpenSTA.git flute3.git OpenROAD.git OpenROAD-flow-private.git TritonRoute.git yosys.git"
 
 work_dir = os.getcwd()
 print("running in working dir ", work_dir)
