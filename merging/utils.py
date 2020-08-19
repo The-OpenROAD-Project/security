@@ -28,7 +28,6 @@ def run_command_locally(command):
     retval = ""
     try:
         retval = subprocess.check_output(shlex.split(command)).decode('utf-8')
-        print(retval)
     except subprocess.CalledProcessError as exc:
         print("error code ", exc.returncode, " ", exc.output)
     return(retval)
