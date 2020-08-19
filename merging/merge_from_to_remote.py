@@ -53,8 +53,8 @@ for repo in repo_names:
         print("working on " + branch)
         utils.run_command_locally("git checkout -f " + branch)
         #pull from new origin gite, automatically merges
-        utils.run_command_locally("git pull origin " + branch)
         utils.run_command_locally("git pull dest " + branch)
+        utils.run_command_locally("git pull origin " + branch)
 
     utils.run_command_locally("git remote -v")
     print(utils.run_command_locally("git push --all dest"))

@@ -5,20 +5,25 @@ import array as arr
 import os
 import shlex
 
-def run_command_locally(command):
-    print("command=",command)
-    retval = subprocess.run(shlex.split(command), stdout=subprocess.PIPE).stdout.decode('utf-8')
-    print(retval)
-    return(retval)
+work_dir = os.getcwd()
+path_to_script = os.path.dirname(os.path.realpath(__file__))
+print("running in working dir ", work_dir)
+print("path to script=",os.path.dirname(os.path.realpath(__file__)))
+for path in sys.path:
+    print(path)
+sys.path.append(path_to_script)
+import utils
 
 github_remote_prefix = "git@github.com:The-OpenROAD-Project/"
 gite_remote_prefix = "git@github.com:The-OpenROAD-Project-Private/"
-repo_names = "security.git OpenDB.git OpenRCX.git OpenSTA.git flute3.git OpenROAD.git OpenROAD-flow-private.git TritonRoute.git yosys.git"
+repo_names = "OpenDB.git OpenRCX.git OpenROAD.git OpenROAD-flow-private.git TritonRoute.git"
+repo_names_master_only = "security.git OpenSTA.git flute3.git yosys.git"
 
-work_dir = os.getcwd()
-print("running in working dir ", work_dir)
-path_to_script = os.path.dirname(os.path.realpath(__file__))
-print("path to script=",path_to_script)
+# First work on the repos with only the master branch being merged
+script_command = path_to_script + "/" + "merge_from_to_remote.py --from_remote " + github_remote_prefix + " --to_remote " + gite_remote_prefix + " --repo_names " + repo_names_master_only +" --repo_branches master"
+print(utils.run_command_locally(script_command))
 
+# Next work on the rest
 script_command = path_to_script + "/" + "merge_from_to_remote.py --from_remote " + github_remote_prefix + " --to_remote " + gite_remote_prefix + " --repo_names " + repo_names +" --repo_branches master openroad"
-print(run_command_locally(script_command))
+print(utils.run_command_locally(script_command))
+
