@@ -25,8 +25,11 @@ def check_exists(pgm):
 
 def run_command_locally(command):
     print("command=",command)
-    retval = subprocess.run(shlex.split(command), stdout=subprocess.PIPE).stdout.decode('utf-8')
-    print(retval)
-    if not check_exists("git"):
-        exit(0)
+    retval = ""
+    try:
+        retval = subprocess.check_output(shlex.split(command)).decode('utf-8')
+        print(retval)
+    except subprocess.CalledProcessError as exc:
+        print("error code ", exc.returncode, " ", exc.output)
     return(retval)
+

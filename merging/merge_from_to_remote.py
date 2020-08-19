@@ -44,6 +44,8 @@ for repo in repo_names:
     os.chdir(repo.split(".")[0])
     # fetch all branches
     utils.run_command_locally("git pull")
+    # origin is the from_remote, dest is the to remote
+    utils.run_command_locally("git remote add dest " + to_remote_prefix + repo)
     branches = repo_branches
     print(branches)
     for branch in branches:
@@ -52,10 +54,8 @@ for repo in repo_names:
         utils.run_command_locally("git checkout -f " + branch)
         #pull from new origin gite, automatically merges
         utils.run_command_locally("git pull origin " + branch)
+        utils.run_command_locally("git pull dest " + branch)
 
     utils.run_command_locally("git remote -v")
-    utils.run_command_locally("git remote set-url origin " + to_remote_prefix + repo)
-    utils.run_command_locally("git remote -v")
-    utils.run_command_locally("git pull")
-    print(utils.run_command_locally("git push --all origin"))
+    print(utils.run_command_locally("git push --all dest"))
     os.chdir("..")    
