@@ -24,7 +24,6 @@ def check_exists(pgm):
     return True
 
 def run_command_locally(command):
-    print("command=",command)
     retval = ""
     try:
         retval = subprocess.check_output(shlex.split(command)).decode('utf-8')

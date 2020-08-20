@@ -7,10 +7,6 @@ import shlex
 
 work_dir = os.getcwd()
 path_to_script = os.path.dirname(os.path.realpath(__file__))
-print("running in working dir ", work_dir)
-print("path to script=",os.path.dirname(os.path.realpath(__file__)))
-for path in sys.path:
-    print(path)
 sys.path.append(path_to_script)
 import utils
 
@@ -19,4 +15,4 @@ gite_remote_prefix = "git@github.com:The-OpenROAD-Project-Private/"
 repo_names = "OpenDB.git OpenROAD.git"
 
 script_command = path_to_script + "/" + "merge_from_to_remote.py --to_remote " + github_remote_prefix + " --from_remote " + gite_remote_prefix + " --repo_names " + repo_names +" --repo_branches master openroad"
-print(run_command_locally(script_command))
+run_command_locally(script_command)
