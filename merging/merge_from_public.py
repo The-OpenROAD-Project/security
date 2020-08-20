@@ -16,7 +16,14 @@ import utils
 
 github_remote_prefix = "git@github.com:The-OpenROAD-Project/"
 gite_remote_prefix = "git@github.com:The-OpenROAD-Project-Private/"
-repo_names = "OpenDB.git OpenROAD.git"
+repo_names = "OpenDB.git OpenRCX.git  TritonRoute.git OpenROAD.git OpenROAD-flow-private.git"
+repo_names_master_only = "security.git OpenSTA.git flute3.git yosys.git"
 
+print("First work on the repos with only the master branch being merged")
+script_command = path_to_script + "/" + "merge_from_to_remote.py --from_remote " + github_remote_prefix + " --to_remote " + gite_remote_prefix + " --repo_names " + repo_names_master_only +" --repo_branches master"
+print(utils.run_command_locally(script_command))
+
+print("Next work on the rest")
 script_command = path_to_script + "/" + "merge_from_to_remote.py --from_remote " + github_remote_prefix + " --to_remote " + gite_remote_prefix + " --repo_names " + repo_names +" --repo_branches master openroad"
 print(utils.run_command_locally(script_command))
+
