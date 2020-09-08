@@ -29,7 +29,8 @@ repo_names = args.repo_names
 
 repo_branches = args.repo_branches
 
-hooks = utils.run_command_locally("git config --get core.hooksPath")
+hooks = utils.run_command_locally("git config --get core.hooksPath").rstrip()
+print("{}/pre-commit.py --local".format(hooks))
 
 for repo in repo_names:
     utils.run_command_locally("git clone " + from_remote_prefix + repo)
