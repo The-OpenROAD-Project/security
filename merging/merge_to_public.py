@@ -16,10 +16,18 @@ repo_names = "OpenDB.git OpenRCX.git  TritonRoute.git OpenROAD.git OpenROAD-flow
 repo_names_master_only = "lef.git def.git flute3.git yosys.git"
 
 print("First work on the repos with only the master branch being merged")
-script_command = path_to_script + "/" + "merge_from_to_remote.py --to_remote " + github_remote_prefix + " --from_remote " + private_remote_prefix + " --repo_names " + repo_names_master_only +" --repo_branches master"
+script_command = path_to_script + "/" + "merge_from_to_remote.py" + \
+    " --to_remote " + github_remote_prefix + \
+    " --from_remote " + private_remote_prefix + \
+    " --repo_names " + repo_names_master_only + \
+    " --repo_branches master"
 utils.run_command_locally(script_command)
 
 print("Next work on the rest")
-script_command = path_to_script + "/" + "merge_from_to_remote.py --to_remote " + github_remote_prefix + " --from_remote " + private_remote_prefix + " --repo_names " + repo_names +" --repo_branches master openroad"
+script_command = path_to_script + "/" + "merge_from_to_remote.py" + \
+    "--to_remote " + github_remote_prefix + \
+    " --from_remote " + private_remote_prefix + \
+    " --repo_names " + repo_names + \
+    " --repo_branches master openroad"
 utils.run_command_locally(script_command)
 
