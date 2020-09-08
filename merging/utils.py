@@ -24,10 +24,4 @@ def check_exists(pgm):
     return True
 
 def run_command_locally(command):
-    retval = ""
-    try:
-        retval = subprocess.check_output(shlex.split(command)).decode('utf-8')
-    except subprocess.CalledProcessError as exc:
-        print("error code ", exc.returncode, " ", exc.output)
-    return(retval)
-
+    return subprocess.check_output(shlex.split(command)).decode('utf-8')
