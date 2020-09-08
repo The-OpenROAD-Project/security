@@ -29,6 +29,8 @@ repo_names = args.repo_names
 
 repo_branches = args.repo_branches
 
+hooks = utils.run_command_locally("git config --get core.hooksPath")
+
 for repo in repo_names:
     utils.run_command_locally("git clone " + from_remote_prefix + repo)
     os.chdir(repo.split(".")[0])
@@ -38,9 +40,10 @@ for repo in repo_names:
     utils.run_command_locally("git remote add dest " + to_remote_prefix + repo)
     branches = repo_branches
     for branch in branches:
-        branch = utils.remove_prefix(branch,"remotes/origin/")
+        branch = utils.remove_prefix(branch, "remotes/origin/")
         utils.run_command_locally("git checkout -f " + branch)
-        #pull from new origin gite, automatically merges
+        utils.run_command_locally("{}/pre-commit.py --local".format(hooks))
+        # pull from new origin gite, automatically merges
         utils.run_command_locally("git pull dest " + branch)
         utils.run_command_locally("git pull origin " + branch)
 
