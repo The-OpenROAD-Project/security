@@ -21,11 +21,18 @@ parser.add_argument('--from_remote', dest='from_remote', action='store', help='f
 parser.add_argument('--to_remote', dest='to_remote', action='store', help='to / destination remote')
 parser.add_argument('--repo_names', dest='repo_names', action='store', nargs='+', help='repo names')
 parser.add_argument('--repo_branches', dest='repo_branches', action='store', nargs='+', help='repo branches to copy')
+parser.add_argument('--push', default=False, dest='push', action='store_false', help='after all changes are staged in a first run then push')
 
 args = parser.parse_args()
 from_remote_prefix = args.from_remote
 to_remote_prefix = args.to_remote
 repo_names = args.repo_names
+push = args.push
+
+if args.push:
+    print("push a staged area")
+else:
+    print("pull, merging, scanning and created a staged area")
 
 repo_branches = args.repo_branches
 
@@ -33,21 +40,24 @@ hooks = utils.run_command_locally("git config --get core.hooksPath").rstrip()
 print("{}/pre-commit.py --local".format(hooks))
 
 for repo in repo_names:
-    utils.run_command_locally("git clone " + from_remote_prefix + repo)
-    os.chdir(repo.split(".")[0])
-    # fetch all branches
-    utils.run_command_locally("git pull")
-    # origin is the from_remote, dest is the to remote
-    utils.run_command_locally("git remote add dest " + to_remote_prefix + repo)
+    if not args.push:
+        utils.run_command_locally("git clone " + from_remote_prefix + repo)
+        os.chdir(repo.split(".")[0])
+        # fetch all branches
+        utils.run_command_locally("git pull")
+        # origin is the from_remote, dest is the to remote
+        utils.run_command_locally("git remote add dest " + to_remote_prefix + repo)
     branches = repo_branches
     for branch in branches:
         branch = utils.remove_prefix(branch, "remotes/origin/")
         utils.run_command_locally("git checkout -f " + branch)
         utils.run_command_locally("{}/pre-commit.py --local".format(hooks))
         # pull from new origin gite, automatically merges
-        utils.run_command_locally("git pull dest " + branch)
-        utils.run_command_locally("git pull origin " + branch)
+        if not args.push:
+            utils.run_command_locally("git pull dest " + branch)
+            utils.run_command_locally("git pull origin " + branch)
 
     utils.run_command_locally("git remote -v")
-    utils.run_command_locally("git push --all dest")
+    if args.push:
+        utils.run_command_locally("git push --all dest")
     os.chdir("..")    
