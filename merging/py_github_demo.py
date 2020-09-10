@@ -24,4 +24,10 @@ print(org.url)
 repo = org.get_repo('OpenROAD')
 print(repo.full_name)
 
+branches = repo.get_branches()
+for branch in branches:
+    if branch.name == "openroad":
+        print(branch.name)
+        print(branch.protection_url)
+        print(branch.get_protection())
 
