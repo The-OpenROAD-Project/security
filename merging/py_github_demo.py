@@ -29,5 +29,10 @@ for branch in branches:
     if branch.name == "openroad":
         print(branch.name)
         print(branch.protection_url)
-        print(branch.get_protection())
+        print(branch.get_protection().enforce_admins)
+        print(branch.remove_admin_enforcement())
+        print(branch.get_protection().enforce_admins)
+        print(branch.set_admin_enforcement())
+        print(branch.get_protection().enforce_admins)
+
 
