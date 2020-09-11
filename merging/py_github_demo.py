@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 import os
 from github import Github
-
-
 from os.path import expanduser
+
+
 home = expanduser("~")
 token_file = home + "/" + "git_merge_token"
 f = open(token_file)
