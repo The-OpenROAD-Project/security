@@ -10,12 +10,18 @@ from github import Github
 from os.path import expanduser
 
 parser = argparse.ArgumentParser(description='Modify branch protection rules for admins')
+parser.add_argument('--disable', default=False, dest='disable', action='store_true', help='after all changes are staged in a first run then push')
 parser.add_argument('--enable', default=False, dest='enable', action='store_true', help='after all changes are staged in a first run then push')
 parser.add_argument('--report_only', default=False, dest='report_only', action='store_true', help='after all changes are staged in a first run then push')
 
 args = parser.parse_args()
 enable = args.enable
+disable = args.disable
 report_only = args.report_only
+
+if enable and disable:
+    print("Error: both enable and disable set")
+    exit
 
 home = expanduser("~")
 token_file = home + "/" + "git_merge_token"
@@ -43,7 +49,7 @@ for branch in branches:
         if not report_only:
             if enable:
                 branch.set_admin_enforcement()
-            else:
+            if disable:
                 branch.remove_admin_enforcement()
         print("branch protection for admin on branch " + branch.name + " is now =",
               branch.get_protection().enforce_admins)
