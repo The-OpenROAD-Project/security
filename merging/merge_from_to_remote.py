@@ -39,13 +39,16 @@ repo_branches = args.repo_branches
 hooks = utils.run_command_locally("git config --get core.hooksPath").rstrip()
 
 for repo in repo_names:
-    os.chdir(repo.split(".")[0])
     if not push:
         utils.run_command_locally("git clone " + from_remote_prefix + repo)
+        os.chdir(repo.split(".")[0])
         # fetch all branches
         utils.run_command_locally("git pull")
         # origin is the from_remote, dest is the to remote
         utils.run_command_locally("git remote add dest " + to_remote_prefix + repo)
+    else:
+        os.chdir(repo.split(".")[0])
+
     branches = repo_branches
     for branch in branches:
         branch = utils.remove_prefix(branch, "remotes/origin/")
