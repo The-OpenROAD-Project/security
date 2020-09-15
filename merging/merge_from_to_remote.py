@@ -37,10 +37,18 @@ else:
 repo_branches = args.repo_branches
 
 hooks = utils.run_command_locally("git config --get core.hooksPath").rstrip()
+
 if not push:
-    fp = open("git_diffs", "w") 
-    fp.write("diffs from " + from_remote_prefix + " to " + to_remote_prefix + "\n")
-    utils.run_command_locally("echo \"git diff dest vs origin\" > git_diffs")
+    file_name = "diffs-from-" + from_remote_prefix + "-to-" + to_remote_prefix
+    file_name = file_name.replace("/","")
+    file_name = file_name.replace("\\","")
+    if os.path.exists(file_name):
+        append_write = 'a'
+    else:
+        append_write = 'w'
+    global fp
+    fp = open(file_name, append_write)
+    fp.write(file_name + "\n")
 
 for repo in repo_names:
     if not push:
@@ -71,4 +79,4 @@ for repo in repo_names:
         utils.run_command_locally("{}/pre-commit.py --local".format(hooks))
         utils.run_command_locally("git push --all dest")
     os.chdir("..")
-fp.close()
+

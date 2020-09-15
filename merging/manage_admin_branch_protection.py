@@ -53,3 +53,20 @@ for branch in branches:
                 branch.remove_admin_enforcement()
         print("branch protection for admin on branch " + branch.name + " is now =",
               branch.get_protection().enforce_admins)
+
+
+repo = org.get_repo('OpenROAD-flow-private')
+print("Found repo " + repo.full_name)
+
+branches = repo.get_branches()
+for branch in branches:
+    if branch.name == "openroad":
+        print(branch.protection_url)
+        if not report_only:
+            if enable:
+                branch.set_admin_enforcement()
+            if disable:
+                branch.remove_admin_enforcement()
+        print("branch protection for admin on branch " + branch.name + " is now =",
+              branch.get_protection().enforce_admins)
+        
