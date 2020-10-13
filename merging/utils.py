@@ -24,4 +24,4 @@ def check_exists(pgm):
     return True
 
 def run_command_locally(command):
-    return subprocess.check_output(shlex.split(command)).decode('utf-8')
+    return subprocess.check_output(shlex.split(command)).decode('utf-8', errors='replace')

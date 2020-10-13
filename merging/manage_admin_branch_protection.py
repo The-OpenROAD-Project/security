@@ -55,7 +55,7 @@ for branch in branches:
               branch.get_protection().enforce_admins)
 
 
-repo = org.get_repo('OpenROAD-flow-private')
+repo = org.get_repo('OpenROAD-flow-scripts')
 print("Found repo " + repo.full_name)
 
 branches = repo.get_branches()
