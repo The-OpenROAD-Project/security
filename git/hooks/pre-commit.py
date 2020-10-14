@@ -79,7 +79,7 @@ allowed_path_patterns = [
 # Uses compiled expression for performance.
 block_content_patterns = \
     re.compile(r"""
-       gf\d+      # eg gf12, gf14
+       gf\d\d+      # eg gf12, gf14
      | tsmc       # eg tsmc65lp
      | \d+lp      # eg 12LP (for Invecus)
      | \barm\b    # eg ARM
@@ -102,7 +102,19 @@ skip_content_patterns = [
     r"^(tools/TritonRoute)?/README.md$",
     r"^(tools/OpenROAD/)?src/replace/README.md$",
     r"^tools/yosys/",
+    r"^tools/TritonRoute/src/",
     r"^\.git/",
+    r"^flow/designs/.*/config.mk$",
+    r"^flow/designs/.*/wrappers.tcl$",
+    r"^flow/designs/.*/macros.v$",
+    r"^flow/designs/src/.*\.sv2v\.v$",
+    r"^flow/scripts/add_routing_blk.tcl$",
+    r"^flow/scripts/floorplan.tcl$",
+    r"^flow/test/core_tests.sh$",
+    r"^flow/test/smoke.sh$",
+    r"^flow/util/cell-veneer/wrap_stdcells.tcl",
+    r"^flow/util/cell-veneer/lefdef.tcl",
+    r"^flow/Makefile$",
 ]
 
 
