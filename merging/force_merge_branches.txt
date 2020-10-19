@@ -1,0 +1,30 @@
+https://knasmueller.net/git-overwriting-master-with-another-branch
+
+n many git workflows, all changes to your code should eventually end up in the master branch. You may also have a develop branch which contains code changes that are not ready for production deployment yet.
+
+For some reason or another, you may end up in a situation where your develop has changed so much that you can no longer easily merge it into master. Most of those reasons suggest bad practices, but such a situation may also arise due to changes introduced into your git workflow or deployment process.
+
+One way out of this dilemma is to completely replace master with the current develop. There are two ways to achieve that.
+
+Merge Strategy ‘Ours’
+You can use the following commands to merge develop into master using the ‘ours’ merge strategy:
+
+git checkout develop
+git merge -s ours master
+git checkout master
+git merge develop
+The resulting master should now contain the contents of your previous develop and ignore all changes in master.
+
+This method’s advantage is that you get a clean merge commit and other developers using those two branches are less likely to experience problems when merging their feature branches.
+
+The downside is that this merge might fail if your develop and master have diverged to a large degree.
+
+Force Pushing
+A more brutal alternative is to force push the develop branch under a different name:
+
+git push -f origin develop:master
+Using the -f flag, your previous master is completely overwritten with develop, including its history. Warning: this erases all commits from the master branch that are not also in the develop branch.
+
+This solution may be appropriate in your case if you have a small number of other branches and/or other developers. The downside of this approach is that all developers who already have a local copy of the master branch will need to perform a git reset --hard.
+
+Force pushing to the master branch might fail if you use GitLab’s “Protected Branches” feature. You can either make sure your user has proper permissions or disable the protection for a few seconds until your changes are saved.
