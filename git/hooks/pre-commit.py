@@ -117,6 +117,12 @@ skip_content_patterns = [
     r"^flow/Makefile$",
 ]
 
+# Commits to these repos aren't checked as they are
+# never to be made public and are intended for confidential
+# data.
+repos_secure = set((
+    '/home/zf4_projects/OpenROAD-guest/platforms/gf12.git',
+))
 
 def error(msg):
     msg = '\n\nERROR: {}\n\nTo request an exception please contact Tom' \
@@ -219,6 +225,18 @@ def local(top, args):
             check_content(full_name, args, whole_file=True)
 
 
+def check_remotes_secure():
+    repos = run_command('git remote --verbose')
+    allowed = True
+    # Example line:
+    # origin	/home/zf4_projects/OpenROAD-guest/platforms/gf12.git (fetch)
+    for line in repos:
+        (name, url, _) = re.split('\t| \(', line)
+        if url not in repos_secure:
+            allowed = False
+            break
+    return allowed
+
 def main(args):
     # Make sure this is running from the top level of the repo
     try:
@@ -234,6 +252,10 @@ def main(args):
 
     if args.local:
         local(top, args)
+        return
+
+    if check_remotes_secure():
+        print('All git remotes are secure, checking skipped')
         return
 
     # Get status of the staged files
