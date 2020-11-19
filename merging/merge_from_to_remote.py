@@ -76,7 +76,7 @@ for repo in repo_names:
     utils.run_command_locally("git remote -v")
     if push:
         print("{}/pre-commit.py --local".format(hooks))
-        #utils.run_command_locally("{}/pre-commit.py --local".format(hooks))
+        utils.run_command_locally("{}/pre-commit.py --local".format(hooks))
         utils.run_command_locally("git push --all dest")
     os.chdir("..")
 
