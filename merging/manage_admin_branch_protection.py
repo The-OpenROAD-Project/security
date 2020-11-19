@@ -60,7 +60,7 @@ print("Found repo " + repo.full_name)
 
 branches = repo.get_branches()
 for branch in branches:
-    if branch.name == "openroad":
+    if branch.name == "openroad" or branch.name == "master":
         print(branch.protection_url)
         if not report_only:
             if enable:
