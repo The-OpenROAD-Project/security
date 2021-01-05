@@ -22,7 +22,7 @@ print("push=",push)
 github_remote_prefix = "git@github.com:The-OpenROAD-Project/"
 private_remote_prefix = "git@github.com:The-OpenROAD-Project-Private/"
 repo_names = ""
-repo_names_master_only = "OpenDB.git OpenROAD.git OpenROAD-flow-scripts.git"
+repo_names_master_only = "OpenROAD.git OpenROAD-flow-scripts.git"
 #repo_names_master_only = "OpenDB.git OpenRCX.git OpenROAD.git OpenROAD-flow-scripts.git lef.git def.git flute3.git TritonRoute.git"
 
 print("First work on the repos with only the master branch being merged")
