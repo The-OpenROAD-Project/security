@@ -54,29 +54,22 @@ for repo in repo_names:
     if not push:
         utils.run_command_locally("git clone " + from_remote_prefix + repo)
         os.chdir(repo.split(".")[0])
-        # fetch all branches
-        utils.run_command_locally("git pull")
         # origin is the from_remote, dest is the to remote
         utils.run_command_locally("git remote add dest " + to_remote_prefix + repo)
+        utils.run_command_locally("git fetch dest master")
+        # in case of submodule merge conflict git merge -s ours dest/master
     else:
         os.chdir(repo.split(".")[0])
 
-    branches = repo_branches
-    for branch in branches:
-        branch = utils.remove_prefix(branch, "remotes/origin/")
-        utils.run_command_locally("git checkout -f " + branch)
-            # pull from new origin gite, automatically merges
-        if not push:
-            utils.run_command_locally("git pull dest " + branch)
-            utils.run_command_locally("git pull origin " + branch)
-            diffs = utils.run_command_locally("git diff " + branch + " dest/" + branch)
-            fp.write(diffs)
-            fp.flush()
+    if not push:
+        diffs = utils.run_command_locally("git diff dest/master" + " master")
+        fp.write(diffs)
+        fp.flush()
 
     utils.run_command_locally("git remote -v")
     if push:
         print("{}/pre-commit.py --local".format(hooks))
         utils.run_command_locally("{}/pre-commit.py --local".format(hooks))
-        utils.run_command_locally("git push --all dest")
+        utils.run_command_locally("git push dest")
     os.chdir("..")
 

@@ -23,20 +23,10 @@ github_remote_prefix = "git@github.com:The-OpenROAD-Project/"
 private_remote_prefix = "git@github.com:The-OpenROAD-Project-Private/"
 repo_names = ""
 repo_names_master_only = "OpenROAD.git OpenROAD-flow-scripts.git"
-#repo_names_master_only = "OpenDB.git OpenRCX.git OpenROAD.git OpenROAD-flow-scripts.git lef.git def.git flute3.git TritonRoute.git"
 
-print("First work on the repos with only the master branch being merged")
 script_command = path_to_script + "/" + "merge_from_to_remote.py" + " --to_remote " + github_remote_prefix + " --from_remote " + private_remote_prefix + " --repo_names " + repo_names_master_only + " --repo_branches master"
 if push:
     script_command = script_command + " --push"
 print(script_command)
 utils.run_command_locally(script_command)
-
-if repo_names != "":
-    print("Next work on the rest")
-    script_command = path_to_script + "/" + "merge_from_to_remote.py" + " --to_remote " + github_remote_prefix + " --from_remote " + private_remote_prefix + " --repo_names " + repo_names + " --repo_branches master"
-    if push:
-        script_command = script_command + " --push"
-    print(script_command)
-    utils.run_command_locally(script_command)
 

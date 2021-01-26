@@ -47,52 +47,15 @@ print("Found repo " + repo.full_name)
 
 branches = repo.get_branches()
 for branch in branches:
-    if branch.name == "openroad" or branch.name == "master":
-        print(branch.protection_url)
-        if not report_only:
-            if enable:
-                branch.set_admin_enforcement()
-            if disable:
-                branch.remove_admin_enforcement()
-        print("branch protection for admin on branch " + branch.name + " is now =",
-              branch.get_protection().enforce_admins)
-
-
-repo = org.get_repo('OpenROAD-flow-scripts')
-print("Found repo " + repo.full_name)
-
-branches = repo.get_branches()
-for branch in branches:
-    if branch.name == "openroad" or branch.name == "master":
-        print(branch.protection_url)
-        if not report_only:
-            if enable:
-                branch.set_admin_enforcement()
-            if disable:
-                branch.remove_admin_enforcement()
-        print("branch protection for admin on branch " + branch.name + " is now =",
-              branch.get_protection().enforce_admins)
-
-
-######### Private project  #######################
-
-org = g.get_organization('The-OpenROAD-Project-private')
-print("Found organization " + org.url)
-
-repo = org.get_repo('OpenROAD')
-print("Found repo " + repo.full_name)
-
-branches = repo.get_branches()
-for branch in branches:
     if branch.name == "master":
-        print(branch.protection_url)
-        if not report_only:
-            if enable:
-                branch.set_admin_enforcement()
-            if disable:
-                branch.remove_admin_enforcement()
-        print("branch protection for admin on branch " + branch.name + " is now =",
-              branch.get_protection().enforce_admins)
+       print(branch.protection_url)
+       if not report_only:
+           if enable:
+               branch.set_admin_enforcement()
+           if disable:
+               branch.remove_admin_enforcement()
+       print("branch protection for admin on branch " + branch.name + " is now =",
+             branch.get_protection().enforce_admins)
 
 
 repo = org.get_repo('OpenROAD-flow-scripts')
@@ -101,12 +64,13 @@ print("Found repo " + repo.full_name)
 branches = repo.get_branches()
 for branch in branches:
     if branch.name == "master":
-        print(branch.protection_url)
-        if not report_only:
-            if enable:
-                branch.set_admin_enforcement()
-            if disable:
-                branch.remove_admin_enforcement()
-        print("branch protection for admin on branch " + branch.name + " is now =",
-              branch.get_protection().enforce_admins)
-        
+       print(branch.protection_url)
+       if not report_only:
+           if enable:
+               branch.set_admin_enforcement()
+           if disable:
+               branch.remove_admin_enforcement()
+       print("branch protection for admin on branch " + branch.name + " is now =",
+             branch.get_protection().enforce_admins)
+
+
