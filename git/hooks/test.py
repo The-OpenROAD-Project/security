@@ -159,5 +159,8 @@ class TestBlock(unittest.TestCase):
     def test_tsmc_content_fails(self):
         self.do_test_bad_content('\n\n\n  CLN65')        
 
+    def test_cypress_content_fails(self):
+        self.do_test_bad_content('\n\n\n  Cypress')
+
 if __name__ == '__main__':
     unittest.main()

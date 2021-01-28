@@ -84,6 +84,7 @@ block_content_patterns = \
      | \d+lp      # eg 12LP (for Invecus)
      | \barm\b    # eg ARM
      | cln\d+     # eg CLN65 (for ARM)
+     | cypress    # eg Cypress Semiconductor
     """, re.VERBOSE | re.IGNORECASE)
 
 # Files to skip content checks on
@@ -232,6 +233,9 @@ def check_remotes_secure():
     # Example line:
     # origin	/home/zf4_projects/OpenROAD-guest/platforms/gf12.git (fetch)
     for line in repos:
+        if not line: # local repo (used for testing)
+            allowed = False
+            continue
         (name, url, _) = re.split('\t| \(', line)
         if url not in repos_secure:
             allowed = False
