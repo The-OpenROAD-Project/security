@@ -46,8 +46,6 @@ allowed_path_patterns = [
     r"^flow/util",
     r"^flow/README.md",
     r"^flow/Makefile",
-    r"^(tools/TritonRoute)?/module/lef/5.8-p029/TEST",
-    r"^(tools/TritonRoute)?/test",
     r"^(tools/OpenROAD/)?src/FastRoute/test",
     r"^(tools/OpenROAD/)?src/ICeWall/test",
     r"^((tools/OpenROAD/)?src/OpenDB/)?src/lef(56)?/TEST",
@@ -103,7 +101,6 @@ skip_content_patterns = [
     r"^(tools/TritonRoute)?/README.md$",
     r"^(tools/OpenROAD/)?src/replace/README.md$",
     r"^tools/yosys/",
-    r"^tools/TritonRoute/src/",
     r"^\.git/",
     r"^flow/designs/.*/config.mk$",
     r"^flow/designs/.*/wrappers.tcl$",
@@ -235,7 +232,7 @@ def check_remotes_secure():
     for line in repos:
         if not line: # local repo (used for testing)
             allowed = False
-            continue
+            break
         (name, url, _) = re.split('\t| \(', line)
         if url not in repos_secure:
             allowed = False
