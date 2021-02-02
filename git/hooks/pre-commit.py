@@ -65,6 +65,7 @@ allowed_path_patterns = [
     r"^(tools/OpenROAD/)?src/replace/test",
     r"^(tools/OpenROAD/)?src/resizer/test",
     r"^(tools/OpenROAD/)?src/tapcell/test",
+    r"^(tools/OpenROAD/)?src/OpenRCX/test",
     r"^(tools/OpenROAD/)?test",
     r"^tools/yosys",
 ]
