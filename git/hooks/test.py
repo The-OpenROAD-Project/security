@@ -95,7 +95,7 @@ class TestBlock(unittest.TestCase):
         self.do_test_bad_file('foo.gz')
         self.do_test_bad_file('foo.tgz')
 
-    def test_gz_fails(self):
+    def test_tar_fails(self):
         self.do_test_bad_file('foo.tar')
 
     def test_tsmc_fails(self):
