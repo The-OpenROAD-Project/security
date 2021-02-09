@@ -241,6 +241,10 @@ def check_remotes_secure():
     return allowed
 
 def main(args):
+    # subprocess.run doesn't exist before 3.5
+    if sys.version_info < (3, 5):
+        sys.exit("Python 3.5 or later is required")
+
     # Make sure this is running from the top level of the repo
     try:
         top = run_command('git rev-parse --show-toplevel')[0]
