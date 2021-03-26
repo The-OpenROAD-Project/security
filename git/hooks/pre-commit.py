@@ -30,9 +30,11 @@ blocked_path_patterns = [
     r"\.tar",
     r"tsmc",
     r"gf\d+",
-    r"\d+lp",  # Invecas
-    r"sc\d+",  # ARM-style names
-    r"cln\d+", # eg CLN65 (for ARM)
+    r"\d+lp",    # Invecas
+    r"sc\d+",    # ARM-style names
+    r"cln\d+",   # eg CLN65 (for ARM)
+    r"scc9gena", # Sky90 library
+    r"sky90"     # Sky90
 ]
 
 # Allowed paths are exceptions to blocked paths above.

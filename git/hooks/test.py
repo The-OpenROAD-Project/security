@@ -101,8 +101,14 @@ class TestBlock(unittest.TestCase):
     def test_tsmc_fails(self):
         self.do_test_bad_file('tsmc65lp')
 
-    def test_tsmc_fails(self):
+    def test_tsmc_lib_fails(self):
         self.do_test_bad_file('cln12.lef')
+
+    def test_sky90_fails(self):
+        self.do_test_bad_file('sky90')
+
+    def test_sky90_lib_fails(self):
+        self.do_test_bad_file('scc9gena.lef')
 
     def test_arm_fails(self):
         self.do_test_bad_file('sc9mcpp84_12lp_base_rvt')
@@ -156,7 +162,7 @@ class TestBlock(unittest.TestCase):
     def test_tsmc_content_fails(self):
         self.do_test_bad_content('\n\n\n  tsmc')
 
-    def test_tsmc_content_fails(self):
+    def test_tsmc_lib_content_fails(self):
         self.do_test_bad_content('\n\n\n  CLN65')        
 
     def test_cypress_content_fails(self):
