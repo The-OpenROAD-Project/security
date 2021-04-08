@@ -125,6 +125,7 @@ skip_content_patterns = [
 repos_secure = set((
     '/home/zf4_projects/OpenROAD-guest/platforms/gf12.git',
     '/home/zf4_projects/OpenROAD-guest/platforms/tsmc65lp.git',
+    '/home/zf4_projects/OpenROAD-guest/platforms/intel22.git',
 ))
 
 def error(msg):
