@@ -1,3 +1,0 @@
-docker build -f Dockerfile -t pre-receive-centos7-python .
-docker create --name pre-receive-centos7-python pre-receive-centos7-python /bin/true
-docker export pre-receive-centos7-python | gzip > pre-receive-centos7-python.tar.gz
