@@ -5,6 +5,7 @@ import subprocess
 import re
 import sys
 import os
+import gzip
 
 print("Running pre-commit security hook....")
 
@@ -21,6 +22,7 @@ blocked_path_patterns = [
     r"flow/",
     r"\.gds",
     r"\.lef",
+    r"\.def$",
     r"\.cdl",
     r"\.cal",
     r"\.v",
@@ -29,6 +31,7 @@ blocked_path_patterns = [
     r"\.t?gz",
     r"\.tar",
     r"tsmc",
+    r"intel",
     r"gf\d+",
     r"\d+lp",    # Invecas
     r"sc\d+",    # ARM-style names
@@ -49,26 +52,28 @@ allowed_path_patterns = [
     r"^flow/util",
     r"^flow/README.md",
     r"^flow/Makefile",
-    r"^(tools/OpenROAD/)?src/FastRoute/test",
+    r"^(tools/OpenROAD/)?src/grt/test",
     r"^(tools/OpenROAD/)?src/ICeWall/test",
-    r"^((tools/OpenROAD/)?src/OpenDB/)?src/lef(56)?/TEST",
+    r"^((tools/OpenROAD/)?src/OpenDB/)?src/[ld]ef(56)?/TEST",
     r"^((tools/OpenROAD/)?src/OpenDB/)?test",
-    r"^(tools/OpenROAD/)?src/OpenPhySyn/test",
-    r"^(tools/OpenROAD/)?src/OpenSTA/examples",
-    r"^(tools/OpenROAD/)?src/OpenSTA/test",
+    r"^(tools/OpenROAD/)?src/sta/examples",
+    r"^(tools/OpenROAD/)?src/sta/test",
     r"^(tools/OpenROAD/)?src/PDNSim/test",
     r"^(tools/OpenROAD/)?src/TritonCTS/test",
-    r"^(tools/OpenROAD/)?src/TritonMacroPlace/test",
-    r"^(tools/OpenROAD/)?src/antennachecker/test",
+    r"^(tools/OpenROAD/)?src/mpl/test",
+    r"^(tools/OpenROAD/)?src/antenna_checker/test",
     r"^(tools/OpenROAD/)?src/dbSta/test",
-    r"^(tools/OpenROAD/)?src/init_fp/test",
-    r"^(tools/OpenROAD/)?src/ioPlacer/test",
-    r"^(tools/OpenROAD/)?src/opendp/test",
+    r"^(tools/OpenROAD/)?src/ifp/test",
+    r"^(tools/OpenROAD/)?src/ppl/test",
+    r"^(tools/OpenROAD/)?src/dpl/test",
     r"^(tools/OpenROAD/)?src/pdngen/test",
     r"^(tools/OpenROAD/)?src/replace/test",
-    r"^(tools/OpenROAD/)?src/resizer/test",
-    r"^(tools/OpenROAD/)?src/tapcell/test",
+    r"^(tools/OpenROAD/)?src/rsz/test",
+    r"^(tools/OpenROAD/)?src/tap/test",
     r"^(tools/OpenROAD/)?src/OpenRCX/test",
+    r"^(tools/OpenROAD/)?src/PartitionMgr/test",
+    r"^(tools/OpenROAD/)?src/TritonRoute/test",
+    r"^(tools/OpenROAD/)?src/psm/test",
     r"^(tools/OpenROAD/)?test",
     r"^tools/yosys",
 ]
@@ -81,12 +86,13 @@ allowed_path_patterns = [
 # Uses compiled expression for performance.
 block_content_patterns = \
     re.compile(r"""
-       gf\d\d+      # eg gf12, gf14
+       gf\d\d+    # eg gf12, gf14
      | tsmc       # eg tsmc65lp
      | \d+lp      # eg 12LP (for Invecus)
      | \barm\b    # eg ARM
      | cln\d+     # eg CLN65 (for ARM)
      | cypress    # eg Cypress Semiconductor
+     | intel      # eg Intel
     """, re.VERBOSE | re.IGNORECASE)
 
 # Files to skip content checks on
@@ -98,11 +104,16 @@ skip_content_patterns = [
     r"\.gif$",
     r"\.odt$",
     r"\.xlsx$",
+    r"\.a$",
+    r"^src/sta/app/sta$",
     r"\.dat$",  # eg POWV9.dat
     r"\.gds(\.orig)?$",
     r"^README.md$",
+    r"^docs/index.rst$",
+    r"^docs/user/GettingStarted.rst$",
     r"^flow/README.md$",
-    r"^(tools/TritonRoute)?/README.md$",
+    r"^(tools/OpenROAD/)?src/TritonRoute/src", # until cleaned up
+    r"^(tools/OpenROAD/)?src/TritonRoute/cmake", # .../intel/vtune
     r"^(tools/OpenROAD/)?src/replace/README.md$",
     r"^tools/yosys/",
     r"^\.git/",
@@ -129,7 +140,7 @@ repos_secure = set((
 ))
 
 def error(msg):
-    msg = '\n\nERROR: {}\n\nTo request an exception please contact Tom' \
+    msg = '\n\nERROR: {}\n\nTo request an exception please file an issue on GitHub' \
       .format(msg)
     sys.exit(msg)
 
@@ -160,8 +171,16 @@ def check_content(name, args, whole_file=False):
         return
 
     if whole_file:
-        with open(name) as f:
-            lines = f.readlines()
+        if os.path.islink(name):
+            if args.verbose:
+                print("Skipping link", name)
+            return
+        if name.endswith('.gz'):
+            with gzip.open(name, mode='rt', encoding='utf-8') as f:
+                lines = f.readlines()
+        else:
+            with open(name, encoding='utf-8') as f:
+                lines = f.readlines()
     else:
         # the : in front of the file name gets the staged version of the
         # file, not what is currently on disk unstaged which could be
