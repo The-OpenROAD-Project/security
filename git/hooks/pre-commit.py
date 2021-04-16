@@ -115,6 +115,7 @@ skip_content_patterns = [
     r"^(tools/OpenROAD/)?src/TritonRoute/src", # until cleaned up
     r"^(tools/OpenROAD/)?src/TritonRoute/cmake", # .../intel/vtune
     r"^(tools/OpenROAD/)?src/replace/README.md$",
+    r"^(flow/platforms/)?sky130hd/chameleon",
     r"^tools/yosys/",
     r"^\.git/",
     r"^flow/designs/.*/config.mk$",
@@ -127,6 +128,9 @@ skip_content_patterns = [
     r"^flow/test/smoke.sh$",
     r"^flow/util/cell-veneer/wrap_stdcells.tcl",
     r"^flow/util/cell-veneer/lefdef.tcl",
+    r"^flow/util/calBuffer.py",
+    r"^flow/util/calPath.py",
+    r"^flow/util/run.sh",
     r"^flow/Makefile$",
 ]
 
@@ -176,10 +180,10 @@ def check_content(name, args, whole_file=False):
                 print("Skipping link", name)
             return
         if name.endswith('.gz'):
-            with gzip.open(name, mode='rt', encoding='utf-8') as f:
+            with gzip.open(name, mode='rt', encoding='utf-8', errors='replace') as f:
                 lines = f.readlines()
         else:
-            with open(name, encoding='utf-8') as f:
+            with open(name, encoding='utf-8', errors='replace') as f:
                 lines = f.readlines()
     else:
         # the : in front of the file name gets the staged version of the
