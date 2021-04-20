@@ -47,7 +47,7 @@ allowed_path_patterns = [
     r"^flow/platforms/nangate45",
     r"^flow/platforms/sky130",
     r"^flow/platforms/asap7",
-    r"^flow/designs",
+    r"^flow/designs/.*json",
     r"^flow/scripts",
     r"^flow/test",
     r"^flow/util",
