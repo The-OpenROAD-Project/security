@@ -14,6 +14,11 @@ path_to_script = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(path_to_script)
 import utils
 
+# find path to precommit script
+path_to_pre_commit = os.path.split(path_to_script)[0]
+path_to_pre_commit = os.path.split(path_to_pre_commit)[0]
+path_to_pre_commit = path_to_pre_commit + "/git/hooks/pre-commit.py"
+print(path_to_pre_commit)
 
 # Parse and check arguments
 parser = argparse.ArgumentParser(description='Merge all changes from a remote to a remote for a repo list')
@@ -67,8 +72,8 @@ utils.run_command_locally("git status")
 utils.run_command_locally("git remote -v")
 
 # Run security check
-print("{}/pre-commit.py --local".format(hooks))
-retval = utils.run_command_locally("{}/pre-commit.py --local".format(hooks))
+print("running pre-commit.py --local")
+retval = utils.run_command_locally(path_to_pre_commit + " --local")
 print("retval={}".format(retval))
 
 # push to destination remote
