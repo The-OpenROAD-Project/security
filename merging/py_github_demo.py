@@ -40,10 +40,12 @@ for branch in branches:
 pulls = repo.get_pulls(state="open")
 for pull in pulls:
     title = pull.title
+    base = pull.base #base.ref is the branch being merged into .label is the repo
+    head = pull.head #head.ref is the branch with the new code .label is the repo
     number = pull.number
-    merged = pull.merged
-    mergeable = pull.mergeable
-    mergeable_state = pull.mergeable_state
+    merged = pull.merged # skip for sync
+    mergeable = pull.mergeable # no merge conflict
+    mergeable_state = pull.mergeable_state # tests ok, green button ready (may not work when master protected)
     user = pull.user
     state = pull.state
     milestone = pull.milestone
@@ -51,7 +53,7 @@ for pull in pulls:
     draft = pull.draft
     update_branch = pull.update_branch()
     labels = pull.labels
-    print("{} {} {} {} {} {} {} {} {} {}".format(number,merged,mergeable,mergeable_state,user, state, milestone, draft, update_branch, labels))
+    print("{} {} {} {} {} {} {} {} {} {} {} {} {} {} {}".format(number,base, merged,mergeable,mergeable_state,user, state, milestone, draft, update_branch, labels, base.label, base.ref, head.label, head.ref))
     for l in labels:
         print("l={} {}".format(l.name, l.name == "Ready To Sync Public"))
           
