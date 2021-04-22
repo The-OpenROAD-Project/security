@@ -22,7 +22,7 @@ print("push=",push)
 github_remote_prefix = "git@github.com:The-OpenROAD-Project-staging/"
 private_remote_prefix = "git@github.com:The-OpenROAD-Project-Private/"
 repo_name = "OpenROAD.git"
-repo_branch = "abc_remap"
+repo_branch = "pdn-cpp"
 
 script_command = path_to_script + "/" + "merge_from_to_remote_one_repo_one_branch.py" + " --to_remote " + github_remote_prefix + " --from_remote " + private_remote_prefix + " --repo_name " + repo_name + " --repo_branch " + repo_branch
 if push:

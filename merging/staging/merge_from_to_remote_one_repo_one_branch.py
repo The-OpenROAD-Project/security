@@ -40,34 +40,39 @@ if os.path.exists(file_name):
     append_write = 'a'
 else:
     append_write = 'w'
-global fp
-fp = open(file_name, append_write)
-fp.write(file_name + "\n")
+
+# setup diff file pointer
+#global fp
+#fp = open(file_name, append_write)
 
 # clone and setup destination remote
 utils.run_command_locally("git clone " + from_remote_prefix + repo_name)
-os.chdir(repo.split(".")[0])
+os.chdir(repo_name.split(".")[0])
+
 # origin is the from_remote, dest is the to remote
-utils.run_command_locally("git remote add dest " + to_remote_prefix + repo)
-utils.run_command_locally("git fetch dest " + repo_branch)
+utils.run_command_locally("git remote add dest " + to_remote_prefix + repo_name)
+#utils.run_command_locally("git fetch dest " + repo_branch)
 
 # switch to branch
 utils.run_command_locally("git switch " + repo_branch)
 utils.run_command_locally("git status")
 
-# diff and save diffs
-diffs = utils.run_command_locally("git diff dest/" + repo_branch)
-fp.write(diffs)
-fp.flush()
+#diff and save diffs
+#fp.write(file_name + "\n")
+#diffs = utils.run_command_locally("git diff dest/" + repo_branch)
+#fp.write(diffs)
+#fp.flush()
 
 # print remotes for log
 utils.run_command_locally("git remote -v")
 
+# Run security check
+print("{}/pre-commit.py --local".format(hooks))
+retval = utils.run_command_locally("{}/pre-commit.py --local".format(hooks))
+print("retval={}".format(retval))
+
 # push to destination remote
 if push:
-    os.chdir(repo.split(".")[0])
-    print("{}/pre-commit.py --local".format(hooks))
-    utils.run_command_locally("{}/pre-commit.py --local".format(hooks))
     utils.run_command_locally("git push dest")
     utils.run_command_locally("git status")
 os.chdir("..")
