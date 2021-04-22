@@ -46,9 +46,6 @@ if os.path.exists(file_name):
 else:
     append_write = 'w'
 
-# setup diff file pointer
-#global fp
-#fp = open(file_name, append_write)
 
 # clone and setup destination remote
 utils.run_command_locally("git clone " + from_remote_prefix + repo_name)
@@ -61,12 +58,6 @@ utils.run_command_locally("git remote add dest " + to_remote_prefix + repo_name)
 # switch to branch
 utils.run_command_locally("git switch " + repo_branch)
 utils.run_command_locally("git status")
-
-#diff and save diffs
-#fp.write(file_name + "\n")
-#diffs = utils.run_command_locally("git diff dest/" + repo_branch)
-#fp.write(diffs)
-#fp.flush()
 
 # print remotes for log
 utils.run_command_locally("git remote -v")
