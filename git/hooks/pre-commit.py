@@ -118,7 +118,7 @@ skip_content_patterns = [
     r"^(flow/platforms/)?sky130hd/chameleon",
     r"^tools/yosys/",
     r"^\.git/",
-    r"^flow/designs/.*/metadata-ok.json$",
+    r"^flow/designs/.*/metadata.*-ok.json$",
     r"^flow/designs/.*/config.mk$",
     r"^flow/designs/.*/wrappers.tcl$",
     r"^flow/designs/.*/macros.v$",
