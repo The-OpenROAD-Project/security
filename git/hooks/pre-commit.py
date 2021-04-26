@@ -313,12 +313,19 @@ def main(args):
     added = [f[1] for f in lines if f[0] == 'A']
     num_added = len(added)
 
-    # This is all other changes, including modify, rename, copy, delete
-    num_changed = len(lines) - num_added
+    # Deleted files
+    deleted = [f[1] for f in lines if f[0] == 'D']
+    num_deleted = len(deleted)
+
+    # This is all other changes, including modify, rename, copy
+    num_changed = len(lines) - num_added - num_deleted
 
     if (args.report):
         print("Added {} (limit: {})".format(num_added, file_add_limit))
         for name in added:
+            print("   ", name)
+        print("Deleted {} (limit: none)".format(num_deleted))
+        for name in deleted:
             print("   ", name)
         print("Changed {} (limit: {})".format(num_changed, file_change_limit))
 
