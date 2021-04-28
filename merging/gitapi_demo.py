@@ -4,13 +4,22 @@ import os
 from pprint import pprint
 
 token = os.getenv('GITHUB_TOKEN', '...')
-owner = "tspyrou"
+headers = {'Authorization': f'token {token}'}
+
+owner = "The-OpenROAD-Project-private"
 repo = "OpenROAD"
 query_url = f"https://api.github.com/repos/{owner}/{repo}/issues"
 params = {
     "state": "open",
 }
-headers = {'Authorization': f'token {token}'}
 r = requests.get(query_url, headers=headers, params=params)
-pprint(r.json())
+pprint(len(r.json()))
+
+
+query_url = f"https://api.github.com/repos/{owner}/{repo}/branches"
+params = {
+}
+
+r = requests.get(query_url, headers=headers, params=params)
+pprint(len(r.json()))
 
