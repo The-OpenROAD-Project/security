@@ -20,14 +20,9 @@ pprint(len(r.json()))
 query_url = f"https://api.github.com/repos/{owner}/{repo}/branches"
 params = {
 }
-
 r = requests.get(query_url, headers=headers, params=params)
 pprint(len(r.json()))
-
-        
-
 c = r.content
 j = simplejson.loads(c)
-
 for item in j:
-    print(item)
+    print(item["name"])
