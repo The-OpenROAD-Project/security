@@ -26,3 +26,16 @@ c = r.content
 j = simplejson.loads(c)
 for item in j:
     print(item["name"])
+
+
+query_url = f"https://api.github.com/repos/{owner}/{repo}/pulls"
+params = {
+    "state": "open",
+}
+r = requests.get(query_url, headers=headers, params=params)
+pprint(len(r.json()))
+c = r.content
+j = simplejson.loads(c)
+for item in j:
+    print("url", item["url"], " labels ", item["labels"], " title ", item["title"], " source branch ", item["head"]["ref"])
+#print(j[0])
