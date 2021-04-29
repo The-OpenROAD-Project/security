@@ -43,7 +43,8 @@ for item in j:
         #print("url", item["url"], " labels ", labels, " title ", item["title"], " source branch ", item["head"]["ref"])
         for label in labels:
             source_branch = item["head"]["ref"]
+            dest_branch = item["base"]["ref"]
             label_name = label["name"]
             if label_name == "Ready To Sync Public":
-                print("Branch " + source_branch + " is ready to push to staging." )
+                print("Branch " + source_branch + " is ready to push to staging. Targeted to merge to " + dest_branch + ".")
         
