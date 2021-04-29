@@ -40,7 +40,10 @@ j = simplejson.loads(c)
 for item in j:
     labels = item["labels"]
     if len(labels) > 0:
-        print("url", item["url"], " labels ", labels, " title ", item["title"], " source branch ", item["head"]["ref"])
+        #print("url", item["url"], " labels ", labels, " title ", item["title"], " source branch ", item["head"]["ref"])
         for label in labels:
-            print(label["name"])
+            source_branch = item["head"]["ref"]
+            label_name = label["name"]
+            if label_name == "Ready To Sync Public":
+                print("Branch " + source_branch + " is ready to push to staging." )
         
