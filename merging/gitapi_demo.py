@@ -36,6 +36,11 @@ r = requests.get(query_url, headers=headers, params=params)
 pprint(len(r.json()))
 c = r.content
 j = simplejson.loads(c)
-for item in j:
-    print("url", item["url"], " labels ", item["labels"], " title ", item["title"], " source branch ", item["head"]["ref"])
 #print(j[0])
+for item in j:
+    labels = item["labels"]
+    if len(labels) > 0:
+        print("url", item["url"], " labels ", labels, " title ", item["title"], " source branch ", item["head"]["ref"])
+        for label in labels:
+            print(label["name"])
+        
