@@ -10,11 +10,13 @@ from github import Github
 from os.path import expanduser
 
 parser = argparse.ArgumentParser(description='Modify branch protection rules for admins')
+parser.add_argument('--private', default=False, dest='private', action='store_true', help='apply to private project')
 parser.add_argument('--disable', default=False, dest='disable', action='store_true', help='after all changes are staged in a first run then push')
 parser.add_argument('--enable', default=False, dest='enable', action='store_true', help='after all changes are staged in a first run then push')
 parser.add_argument('--report_only', default=False, dest='report_only', action='store_true', help='after all changes are staged in a first run then push')
 
 args = parser.parse_args()
+private = args.private
 enable = args.enable
 disable = args.disable
 report_only = args.report_only
@@ -38,8 +40,11 @@ print("Using token from user " + user.login)
 
 
 ######### Public project #######################
+org_name = "The-OpenROAD-Project"
+if private:
+    org_name = org_name + "-private"
 
-org = g.get_organization('The-OpenROAD-Project')
+org = g.get_organization(org_name)
 print("Found organization " + org.url)
 
 repo = org.get_repo('OpenROAD')
