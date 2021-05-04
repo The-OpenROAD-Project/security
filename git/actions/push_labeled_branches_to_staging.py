@@ -20,7 +20,7 @@ repo_name = args.repo_name
 repo_branch = args.repo_branch
 
 
-def process_one_repo(token, owner,staging,repo):
+def process_one_repo(token, owner, staging, repo):
     print("Processing " + owner + " " + staging)
     query_url = f"https://api.github.com/repos/{owner}/{repo}/pulls"
     params = {
