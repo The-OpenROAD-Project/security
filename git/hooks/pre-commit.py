@@ -53,6 +53,7 @@ allowed_path_patterns = [
     r"^flow/util",
     r"^flow/README.md",
     r"^flow/Makefile",
+    r"^flow/Makefile.no_drt",
     r"^(tools/OpenROAD/)?src/grt/test",
     r"^(tools/OpenROAD/)?src/ICeWall/test",
     r"^((tools/OpenROAD/)?src/OpenDB/)?src/[ld]ef(56)?/TEST",
