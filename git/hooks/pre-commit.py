@@ -141,9 +141,9 @@ skip_content_patterns = [
 # never to be made public and are intended for confidential
 # data.
 repos_secure = set((
-    '/home/zf4_projects/OpenROAD-guest/platforms/gf12.git',
-    '/home/zf4_projects/OpenROAD-guest/platforms/tsmc65lp.git',
-    '/home/zf4_projects/OpenROAD-guest/platforms/intel22.git',
+    '(.*dfm:)?/home/zf4_projects/OpenROAD-guest/platforms/gf12.git',
+    '(.*dfm:)?/home/zf4_projects/OpenROAD-guest/platforms/tsmc65lp.git',
+    '(.*dfm:)?/home/zf4_projects/OpenROAD-guest/platforms/intel22.git',
 ))
 
 def error(msg):
@@ -257,18 +257,20 @@ def local(top, args):
 
 def check_remotes_secure():
     repos = run_command('git remote --verbose')
-    allowed = True
     # Example line:
     # origin	/home/zf4_projects/OpenROAD-guest/platforms/gf12.git (fetch)
     for line in repos:
         if not line: # local repo (used for testing)
-            allowed = False
-            break
+            return False
         (name, url, _) = re.split('\t| \(', line)
-        if url not in repos_secure:
-            allowed = False
-            break
-    return allowed
+        found = False
+        for repo_pattern in repos_secure:
+            if re.match(repo_pattern, url):
+                found = True
+                break
+        if not found:
+            return False
+    return True
 
 def main(args):
     # subprocess.run doesn't exist before 3.5
