@@ -25,7 +25,7 @@ blocked_path_patterns = [
     r"\.def$",
     r"\.cdl",
     r"\.cal",
-    r"\.v",
+    r"\.v$",
     r"\.db",
     r"\.lib",
     r"\.t?gz",
