@@ -76,6 +76,7 @@ allowed_path_patterns = [
     r"^(tools/OpenROAD/)?src/PartitionMgr/test",
     r"^(tools/OpenROAD/)?src/TritonRoute/test",
     r"^(tools/OpenROAD/)?src/psm/test",
+    r"^(tools/OpenROAD/)?src/pdrev/test",
     r"^(tools/OpenROAD/)?src/pdr/test",
     r"^(tools/OpenROAD/)?test",
     r"^tools/yosys",
