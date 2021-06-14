@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
 import argparse
-import subprocess
-import re
-import sys
-import os
 import gzip
+import hashlib
+import os
+import re
+import subprocess
+import sys
 
 print("Running pre-commit security hook....")
 
@@ -140,6 +141,24 @@ skip_content_patterns = [
     r"^flow/Makefile$",
 ]
 
+# For large files we keep an md5 hash of the contents to avoid the expense
+# of scanning them with the block_content_patterns regex which is slow.
+md5_whitelist = set((
+    'a1a371511c98b51fbaa46041314718fd', # test/sky130hs/sky130_fd_sc_hs__tt_025C_1v80.lib
+    '25707ca69a393abfefe381ab52b82543', # test/sky130hd/sky130_fd_sc_hd__ff_n40C_1v95.lib
+    'b29ffb80bf70e61b7064796c8702eb45', # src/rcx/test/generate_pattern.spefok
+    '0f1a956ff22a003be485a678b3877fd5', # src/rcx/test/generate_pattern.defok
+    '303c92cc0ec313c0630d84f94313f6ac', # src/rcx/test/generate_pattern.vok
+    'd80867b517b2448febf60860bf663374', # src/replace/test/large01.defok
+    '1129d48daf4119864762d3afae44700c', # src/replace/test/large01.def
+    'f66e8a49010debd35833f159dad1d5c8', # src/replace/test/large02.defok
+    '8ce7ee36cde5a01fca6b800a4090c5dc', # src/replace/test/large02.def
+    '6725a64db47a2c4f3a9eba59c149ef66', # src/replace/test/medium04.def
+    '13bd6497ece4785e873ff699eef79f41', # src/replace/test/medium04.defok
+))
+
+md5_whitelist_cutoff = 25 * 1024 * 1024 # 25 Mb
+
 # Commits to these repos aren't checked as they are
 # never to be made public and are intended for confidential
 # data.
@@ -185,6 +204,20 @@ def check_content(name, args, whole_file=False):
             if args.verbose:
                 print("Skipping link", name)
             return
+
+        # Check big files in the md5 whitelist
+        size = os.stat(name).st_size
+        if size >= md5_whitelist_cutoff:
+            with open(name, 'rb') as f:
+                contents = f.read()
+            md5_hash = hashlib.md5(contents).hexdigest()
+            if md5_hash in md5_whitelist:
+                if args.verbose:
+                    print('Skipping big {} with hash {}',  name, md5_hash)
+                return
+            else:
+                error('File {} is big but not whitelisted (hash {})'.format(name, md5_hash))
+
         if name.endswith('.gz'):
             with gzip.open(name, mode='rt', encoding='utf-8', errors='replace') as f:
                 lines = f.readlines()
