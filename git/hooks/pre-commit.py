@@ -276,8 +276,7 @@ def local(top, args):
     """Check the local tree not the git diff.  This is for private to
     public prechecking. """
     for root, dirs, files in os.walk(top,
-                                     onerror=walk_error,
-                                     followlinks=True):
+                                     onerror=walk_error):
         assert(root.startswith(top))
         if root == top:
             root = ''
