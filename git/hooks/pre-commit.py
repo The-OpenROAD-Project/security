@@ -115,8 +115,8 @@ skip_content_patterns = [
     r"\.dat$",  # eg POWV9.dat
     r"\.gds(\.orig)?$",
     r"^README.md$",
-    r"^docs/index.rst$",
-    r"^docs/user/GettingStarted.rst$",
+    r"^(tools/OpenROAD/)?docs/index.rst$",
+    r"^(tools/OpenROAD/)?docs/user/GettingStarted.rst$",
     r"^flow/README.md$",
     r"^(tools/OpenROAD/)?src/TritonRoute/src", # until cleaned up
     r"^(tools/OpenROAD/)?src/TritonRoute/cmake", # .../intel/vtune
@@ -144,6 +144,7 @@ skip_content_patterns = [
 # For large files we keep an md5 hash of the contents to avoid the expense
 # of scanning them with the block_content_patterns regex which is slow.
 md5_whitelist = set((
+    # OpenROAD
     'a1a371511c98b51fbaa46041314718fd', # test/sky130hs/sky130_fd_sc_hs__tt_025C_1v80.lib
     '25707ca69a393abfefe381ab52b82543', # test/sky130hd/sky130_fd_sc_hd__ff_n40C_1v95.lib
     'b29ffb80bf70e61b7064796c8702eb45', # src/rcx/test/generate_pattern.spefok
@@ -155,6 +156,12 @@ md5_whitelist = set((
     '8ce7ee36cde5a01fca6b800a4090c5dc', # src/replace/test/large02.def
     '6725a64db47a2c4f3a9eba59c149ef66', # src/replace/test/medium04.def
     '13bd6497ece4785e873ff699eef79f41', # src/replace/test/medium04.defok
+
+    # OpenROAD-flow-scripts
+    '17d9ce812cf1b635c392750ac0ec69c3', # flow/platforms/sky130ram/sky130_sram_1rw1r_128x256_8/sky130_sram_1rw1r_128x256_8.lef
+    '3d196f7e32be942538db4021fdd72927', # flow/platforms/sky130ram/sky130_sram_1rw1r_64x256_8/sky130_sram_1rw1r_64x256_8.lef
+    '599c96df532d6b334463cecb6b7d2f78', # flow/platforms/sky130hs/lib/sky130_fd_sc_hs__tt_100C_1v80.lib
+
 ))
 
 md5_whitelist_cutoff = 25 * 1024 * 1024 # 25 Mb
