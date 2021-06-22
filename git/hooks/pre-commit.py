@@ -12,7 +12,7 @@ print("Running pre-commit security hook....")
 
 # Limits for rules
 file_add_limit    = 10
-file_change_limit = 300
+file_change_limit = 50
 
 # The following patterns are regular expressions and are matched
 # case-insensitive.  They are matched anywhere with the string
