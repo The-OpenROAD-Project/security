@@ -11,7 +11,7 @@ import sys
 print("Running pre-commit security hook....")
 
 # Limits for rules
-file_add_limit    = 10
+file_add_limit    = 80
 file_change_limit = 50
 
 # The following patterns are regular expressions and are matched
