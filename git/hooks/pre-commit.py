@@ -120,8 +120,8 @@ skip_content_patterns = [
     r"\.dat$",  # eg POWV9.dat
     r"\.gds(\.orig)?$",
     r"^README.md$",
-    r"^(tools/OpenROAD/)?docs/index.rst$",
-    r"^(tools/OpenROAD/)?docs/user/GettingStarted.rst$",
+    r"^(tools/OpenROAD/)?docs/index.md$",
+    r"^(tools/OpenROAD/)?docs/user/GettingStarted.md$",
     r"^flow/README.md$",
     r"^(tools/OpenROAD/)?src/TritonRoute/src", # until cleaned up
     r"^(tools/OpenROAD/)?src/TritonRoute/cmake", # .../intel/vtune
