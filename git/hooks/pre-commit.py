@@ -103,7 +103,7 @@ block_content_patterns = \
      | \barm\b    # eg ARM
      | cln\d+     # eg CLN65 (for ARM)
      | cypress    # eg Cypress Semiconductor
-     | intel      # eg Intel
+     | intel(?!l) # eg Intel (but not intelligent)
     """, re.VERBOSE | re.IGNORECASE)
 
 # Files to skip content checks on
