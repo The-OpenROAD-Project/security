@@ -76,7 +76,7 @@ allowed_path_patterns = [
     r"^(tools/OpenROAD/)?src/rsz/test",
     r"^(tools/OpenROAD/)?src/tap/test",
     r"^(tools/OpenROAD/)?src/par/test",
-    r"^(tools/OpenROAD/)?src/TritonRoute/test",
+    r"^(tools/OpenROAD/)?src/drt/test",
     r"^(tools/OpenROAD/)?src/psm/test",
     r"^(tools/OpenROAD/)?src/pdrev/test",
     r"^(tools/OpenROAD/)?src/pdr/test",
@@ -123,8 +123,8 @@ skip_content_patterns = [
     r"^(tools/OpenROAD/)?docs/index.(md|rst)$",
     r"^(tools/OpenROAD/)?docs/user/GettingStarted.(md|rst)$",
     r"^flow/README.md$",
-    r"^(tools/OpenROAD/)?src/TritonRoute/src", # until cleaned up
-    r"^(tools/OpenROAD/)?src/TritonRoute/cmake", # .../intel/vtune
+    r"^(tools/OpenROAD/)?src/drt/src", # until cleaned up
+    r"^(tools/OpenROAD/)?src/drt/cmake", # .../intel/vtune
     r"^(tools/OpenROAD/)?src/gpl/README.md$",
     r"^(flow/platforms/)?sky130hd/chameleon",
     r"^tools/yosys/",
