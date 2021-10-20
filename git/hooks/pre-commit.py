@@ -131,6 +131,7 @@ skip_content_patterns = [
     r"^\.git/",
     r"^flow/designs/.*/metadata.*-ok.json$",
     r"^flow/designs/.*/config.mk$",
+    r"^flow/designs/.*/config_hier.mk$",
     r"^flow/designs/.*/wrappers.tcl$",
     r"^flow/designs/.*/macros.v$",
     r"^flow/designs/src/.*\.sv2v\.v$",
