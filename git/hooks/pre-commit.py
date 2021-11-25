@@ -57,6 +57,7 @@ allowed_path_patterns = [
     r"^flow/Makefile.no_drt",
     r"^(tools/OpenROAD/)?src/grt/test",
     r"^(tools/OpenROAD/)?src/ICeWall/test",
+    r"^(tools/OpenROAD/)?src/pad/test",
     r"^((tools/OpenROAD/)?src/odb/)?src/[ld]ef(56)?/TEST",
     r"^((tools/OpenROAD/)?src/odb/)?test",
     r"^(tools/OpenROAD/)?src/sta/examples",
