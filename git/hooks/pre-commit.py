@@ -157,21 +157,51 @@ md5_whitelist = set((
     'b29ffb80bf70e61b7064796c8702eb45', # src/rcx/test/generate_pattern.spefok
     '0f1a956ff22a003be485a678b3877fd5', # src/rcx/test/generate_pattern.defok
     '303c92cc0ec313c0630d84f94313f6ac', # src/rcx/test/generate_pattern.vok
-    'd80867b517b2448febf60860bf663374', # src/replace/test/large01.defok
-    '1129d48daf4119864762d3afae44700c', # src/replace/test/large01.def
-    'f66e8a49010debd35833f159dad1d5c8', # src/replace/test/large02.defok
-    '8ce7ee36cde5a01fca6b800a4090c5dc', # src/replace/test/large02.def
-    '6725a64db47a2c4f3a9eba59c149ef66', # src/replace/test/medium04.def
-    '13bd6497ece4785e873ff699eef79f41', # src/replace/test/medium04.defok
+    'd80867b517b2448febf60860bf663374', # src/gpl/test/large01.defok
+    '1129d48daf4119864762d3afae44700c', # src/gpl/test/large01.def
+    'f66e8a49010debd35833f159dad1d5c8', # src/gpl/test/large02.defok
+    '8ce7ee36cde5a01fca6b800a4090c5dc', # src/gpl/test/large02.def
+    'e9e4daefed9083224832fbe262d0ea5d', # src/gpl/test/macro03.def
+    'b49d16b2ca57c7dfe2e690bf1b4c0d57', # src/gpl/test/medium03.defok
+    '965c8a3c3b424708583d48ee1f9ad931', # src/gpl/test/medium03.def
+    '6725a64db47a2c4f3a9eba59c149ef66', # src/gpl/test/medium04.def
+    '13bd6497ece4785e873ff699eef79f41', # src/gpl/test/medium04.defok
+    '338775fa5ff59a87225454f9e3fb7d33', # src/pdn/test/soc_bsg_black_parrot_nangate45.defok
+    '11c59e5f428eb51deee617620ed585bf', # src/pdn/test/soc_bsg_black_parrot_nangate45.pad_offset.defok
 
     # OpenROAD-flow-scripts
+    '2d74c6a29a8cd18536ec332accfa76d1', # flow/platforms/sky130ram/sky130_sram_1rw1r_80x64_8/sky130_sram_1rw1r_80x64_8.lef
     '17d9ce812cf1b635c392750ac0ec69c3', # flow/platforms/sky130ram/sky130_sram_1rw1r_128x256_8/sky130_sram_1rw1r_128x256_8.lef
     '3d196f7e32be942538db4021fdd72927', # flow/platforms/sky130ram/sky130_sram_1rw1r_64x256_8/sky130_sram_1rw1r_64x256_8.lef
     '599c96df532d6b334463cecb6b7d2f78', # flow/platforms/sky130hs/lib/sky130_fd_sc_hs__tt_100C_1v80.lib
+    '3541e22e1ed76cddd2b104c8938b70e7', # flow/platforms/asap7/lib/asap7sc7p5t_OA_SLVT_SS_nldm_201020.lib
+    '6756222941e7d68d3c9cb90984c1bf83', # flow/platforms/asap7/lib/asap7sc7p5t_AO_SLVT_TT_nldm_201020.lib
+    'a3caea338431c290089ac110a9839f62', # flow/platforms/asap7/lib/asap7sc7p5t_AO_SRAM_FF_nldm_201020.lib
+    '557414126cb483fa25a66e3d17f76fe1', # flow/platforms/asap7/lib/asap7sc7p5t_OA_RVT_SS_nldm_201020.lib
+    '421d20d1f12945d4979ae1c78da9aa2e', # flow/platforms/asap7/lib/asap7sc7p5t_AO_RVT_SS_nldm_201020.lib
+    '35dc584334ba616972838ab7b4eadaea', # flow/platforms/asap7/lib/asap7sc7p5t_AO_LVT_TT_nldm_201020.lib
+    '9e56e6d9790f1cd904914b41c6c0faad', # flow/platforms/asap7/lib/asap7sc7p5t_AO_RVT_FF_nldm_201020.lib
+    'f514f36645928a32a7fbd1a232420831', # flow/platforms/asap7/lib/asap7sc7p5t_AO_SRAM_SS_nldm_201020.lib
+    '1d0a4b12b973072e2b8ac0c2d80d2a08', # flow/platforms/asap7/lib/asap7sc7p5t_OA_RVT_FF_nldm_201020.lib
+    'cb552f32d836cee62e8fd8758ace59bc', # flow/platforms/asap7/lib/asap7sc7p5t_OA_SRAM_TT_nldm_201020.lib
+    'a8bb2a328dfaede8e653588dc9b1c062', # flow/platforms/asap7/lib/asap7sc7p5t_OA_LVT_TT_nldm_201020.lib
+    'c801c520546a03e5fca703e6efaf4d44', # flow/platforms/asap7/lib/asap7sc7p5t_OA_SLVT_FF_nldm_201020.lib
+    'c0160f0735003cdda388782b7d3c2956', # flow/platforms/asap7/lib/asap7sc7p5t_AO_RVT_TT_nldm_201020.lib
+    'a36d097e6c3d273f91c4ff4645ebd4a1', # flow/platforms/asap7/lib/asap7sc7p5t_AO_LVT_FF_nldm_201020.lib
+    '353c6442fd0a631fe92dd1b4b53c7a57', # flow/platforms/asap7/lib/asap7sc7p5t_OA_LVT_FF_nldm_201020.lib
+    '4aa64e2f86ac82f74fd7f85755e96de4', # flow/platforms/asap7/lib/asap7sc7p5t_OA_SLVT_TT_nldm_201020.lib
+    'b13ff982123b3ec7a3123e987a976266', # flow/platforms/asap7/lib/asap7sc7p5t_AO_SLVT_SS_nldm_201020.lib
+    'c5c12056efdf6971aca43fef7f7b93cd', # flow/platforms/asap7/lib/asap7sc7p5t_OA_RVT_TT_nldm_201020.lib
+    '73ce20b16bdd41403b3785e592dbee13', # flow/platforms/asap7/lib/asap7sc7p5t_OA_SRAM_FF_nldm_201020.lib
+    'f5b5ea21025ddec37e157b563f7f4db8', # flow/platforms/asap7/lib/asap7sc7p5t_AO_SRAM_TT_nldm_201020.lib
+    'd3cbcdde427e44edc87e7c750303b6ad', # flow/platforms/asap7/lib/asap7sc7p5t_OA_SRAM_SS_nldm_201020.lib
+    'dda503333c1948a41fd17296b8839a09', # flow/platforms/asap7/lib/asap7sc7p5t_AO_SLVT_FF_nldm_201020.lib
+    'cdd685451262808f8f77bd8040c8b230', # flow/platforms/asap7/lib/asap7sc7p5t_OA_LVT_SS_nldm_201020.lib
+    '6d1b8586754b2cdcde73695662c2ab65', # flow/platforms/asap7/lib/asap7sc7p5t_AO_LVT_SS_nldm_201020.lib
 
 ))
 
-md5_whitelist_cutoff = 25 * 1024 * 1024 # 25 Mb
+md5_whitelist_cutoff = 15 * 1024 * 1024 # 15 Mb
 
 # Commits to these repos aren't checked as they are
 # never to be made public and are intended for confidential
