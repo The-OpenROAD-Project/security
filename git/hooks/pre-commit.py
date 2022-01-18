@@ -51,6 +51,7 @@ allowed_path_patterns = [
     r"^flow/platforms/asap7",
     r"^flow/scripts",
     r"^flow/test",
+    r"^flow/tutorials",
     r"^flow/util",
     r"^flow/README.md",
     r"^flow/Makefile",
