@@ -211,6 +211,7 @@ md5_whitelist_cutoff = 15 * 1024 * 1024 # 15 Mb
 # data.
 repos_secure = set((
     '(.*dfm:)?/home/zf4_projects/OpenROAD-guest/platforms/gf12.git',
+    '(.*dfm:)?/home/zf4_projects/OpenROAD-guest/platforms/gf55.git',
     '(.*dfm:)?/home/zf4_projects/OpenROAD-guest/platforms/tsmc65lp.git',
     '(.*dfm:)?/home/zf4_projects/OpenROAD-guest/platforms/intel22.git',
 ))
