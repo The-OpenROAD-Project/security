@@ -176,7 +176,7 @@ md5_whitelist = set((
     '880b1b8b9282e5f9033cf5d6d4c4e6b6', # src/pdn/test/pads_black_parrot.defok (old)
     '0ade01392aacde0bc812c1d00d8af487', # src/pdn/test/pads_black_parrot.defok (new)
     'bff2e7589ef7e3e5cfa731b231845dcf', # src/pdn/test/pads_black_parrot_flipchip.defok (old)
-    'c129ce8592c28e0fa7676d5465298dd7', # src/pdn/test/pads_black_parrot_flipchip.defok (new)
+    'e60445d5a3dcb3efd2e003149a5e3347', # src/pdn/test/pads_black_parrot_flipchip.defok (new)
 
     # OpenROAD-flow-scripts
     '2d74c6a29a8cd18536ec332accfa76d1', # flow/platforms/sky130ram/sky130_sram_1rw1r_80x64_8/sky130_sram_1rw1r_80x64_8.lef
