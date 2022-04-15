@@ -173,10 +173,10 @@ md5_whitelist = set((
     '13bd6497ece4785e873ff699eef79f41', # src/gpl/test/medium04.defok
     '338775fa5ff59a87225454f9e3fb7d33', # src/pdn/test/soc_bsg_black_parrot_nangate45.defok
     '11c59e5f428eb51deee617620ed585bf', # src/pdn/test/soc_bsg_black_parrot_nangate45.pad_offset.defok
-    '880b1b8b9282e5f9033cf5d6d4c4e6b6', # src/pdn/test/pads_black_parrot.defok (old)
-    '0ade01392aacde0bc812c1d00d8af487', # src/pdn/test/pads_black_parrot.defok (new)
-    'bff2e7589ef7e3e5cfa731b231845dcf', # src/pdn/test/pads_black_parrot_flipchip.defok (old)
-    'e60445d5a3dcb3efd2e003149a5e3347', # src/pdn/test/pads_black_parrot_flipchip.defok (new)
+    '0ade01392aacde0bc812c1d00d8af487', # src/pdn/test/pads_black_parrot.defok (old)
+    '21851e9df9ecc6764e3f9067d979dc1e', # src/pdn/test/pads_black_parrot.defok (new)
+    'e60445d5a3dcb3efd2e003149a5e3347', # src/pdn/test/pads_black_parrot_flipchip.defok (old)
+    '543f979cbf751130966023008ae832bd', # src/pdn/test/pads_black_parrot_flipchip.defok (new)
 
     # OpenROAD-flow-scripts
     '2d74c6a29a8cd18536ec332accfa76d1', # flow/platforms/sky130ram/sky130_sram_1rw1r_80x64_8/sky130_sram_1rw1r_80x64_8.lef
