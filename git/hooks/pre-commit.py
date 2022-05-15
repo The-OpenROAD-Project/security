@@ -157,7 +157,7 @@ md5_whitelist = set((
     # OpenROAD
     'a1a371511c98b51fbaa46041314718fd', # test/sky130hs/sky130_fd_sc_hs__tt_025C_1v80.lib before 04/04/2022
     '63f66e54f4d04b374e60756388e9c116', # test/sky130hs/sky130_fd_sc_hs__tt_025C_1v80.lib before 05/15/2022
-    '3f2e7428931bc5797727ddcd44ecb9c7', # test/sky130hs/sky130_fd_sc_hs__tt_025C_1v80.lib
+    'e68d7e44ebb11a713753cc3b4127fca8', # test/sky130hs/sky130_fd_sc_hs__tt_025C_1v80.lib
     '25707ca69a393abfefe381ab52b82543', # test/sky130hd/sky130_fd_sc_hd__ff_n40C_1v95.lib before 04/05/2022
     '7a1179ac0a93781ffdb07090ba8cf260', # test/sky130hd/sky130_fd_sc_hd__ff_n40C_1v95.lib
     'b29ffb80bf70e61b7064796c8702eb45', # src/rcx/test/generate_pattern.spefok
