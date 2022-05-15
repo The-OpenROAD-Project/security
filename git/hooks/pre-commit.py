@@ -155,10 +155,7 @@ skip_content_patterns = [
 # of scanning them with the block_content_patterns regex which is slow.
 md5_whitelist = set((
     # OpenROAD
-    'a1a371511c98b51fbaa46041314718fd', # test/sky130hs/sky130_fd_sc_hs__tt_025C_1v80.lib before 04/04/2022
-    '63f66e54f4d04b374e60756388e9c116', # test/sky130hs/sky130_fd_sc_hs__tt_025C_1v80.lib before 05/15/2022
     'e68d7e44ebb11a713753cc3b4127fca8', # test/sky130hs/sky130_fd_sc_hs__tt_025C_1v80.lib
-    '25707ca69a393abfefe381ab52b82543', # test/sky130hd/sky130_fd_sc_hd__ff_n40C_1v95.lib before 04/05/2022
     '7a1179ac0a93781ffdb07090ba8cf260', # test/sky130hd/sky130_fd_sc_hd__ff_n40C_1v95.lib
     'b29ffb80bf70e61b7064796c8702eb45', # src/rcx/test/generate_pattern.spefok
     '0f1a956ff22a003be485a678b3877fd5', # src/rcx/test/generate_pattern.defok
@@ -183,7 +180,7 @@ md5_whitelist = set((
     '2d74c6a29a8cd18536ec332accfa76d1', # flow/platforms/sky130ram/sky130_sram_1rw1r_80x64_8/sky130_sram_1rw1r_80x64_8.lef
     '17d9ce812cf1b635c392750ac0ec69c3', # flow/platforms/sky130ram/sky130_sram_1rw1r_128x256_8/sky130_sram_1rw1r_128x256_8.lef
     '3d196f7e32be942538db4021fdd72927', # flow/platforms/sky130ram/sky130_sram_1rw1r_64x256_8/sky130_sram_1rw1r_64x256_8.lef
-    '599c96df532d6b334463cecb6b7d2f78', # flow/platforms/sky130hs/lib/sky130_fd_sc_hs__tt_100C_1v80.lib
+    '3f2e7428931bc5797727ddcd44ecb9c7', # flow/platforms/sky130hs/lib/sky130_fd_sc_hs__tt_100C_1v80.lib
     '3541e22e1ed76cddd2b104c8938b70e7', # flow/platforms/asap7/lib/asap7sc7p5t_OA_SLVT_SS_nldm_201020.lib
     '6756222941e7d68d3c9cb90984c1bf83', # flow/platforms/asap7/lib/asap7sc7p5t_AO_SLVT_TT_nldm_201020.lib
     'a3caea338431c290089ac110a9839f62', # flow/platforms/asap7/lib/asap7sc7p5t_AO_SRAM_FF_nldm_201020.lib
