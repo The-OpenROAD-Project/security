@@ -208,6 +208,7 @@ md5_whitelist = set((
     '6d1b8586754b2cdcde73695662c2ab65', # flow/platforms/asap7/lib/asap7sc7p5t_AO_LVT_SS_nldm_201020.lib
     '87827d7810febeb69a0a19e9af520642', # flow/designs/sky130hd/microwatt/gds/Microwatt_FP_DFFRFile.gds.gz
     '287e146444ded121d259f82dfe8f3a28', # flow/designs/sky130hd/microwatt/gds/RAM512.gds.gz
+    'cb1e9c44a755ceebeb846f33c658a0c8', # flow/designs/nangate45/mempool_tile/mempool_tile_wrap.v
 ))
 
 md5_whitelist_cutoff = 15 * 1024 * 1024 # 15 Mb
