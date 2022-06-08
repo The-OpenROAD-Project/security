@@ -216,10 +216,16 @@ md5_whitelist_cutoff = 15 * 1024 * 1024 # 15 Mb
 # never to be made public and are intended for confidential
 # data.
 repos_secure = set((
+    '(.*or-\d:)?/platforms/gf12.git',
+    '(.*or-\d:)?/platforms/gf55.git',
+    '(.*or-\d:)?/platforms/tsmc65lp.git',
+    '(.*or-\d:)?/platforms/intel22.git',
+    '(.*or-\d:)?/platforms/intel16.git',
     '(.*dfm:)?/home/zf4_projects/OpenROAD-guest/platforms/gf12.git',
     '(.*dfm:)?/home/zf4_projects/OpenROAD-guest/platforms/gf55.git',
     '(.*dfm:)?/home/zf4_projects/OpenROAD-guest/platforms/tsmc65lp.git',
     '(.*dfm:)?/home/zf4_projects/OpenROAD-guest/platforms/intel22.git',
+    '(.*dfm:)?/home/zf4_projects/OpenROAD-guest/platforms/intel16.git',
 ))
 
 def error(msg):
@@ -347,7 +353,7 @@ def local(top, args):
 def check_remotes_secure():
     repos = run_command('git remote --verbose')
     # Example line:
-    # origin	/home/zf4_projects/OpenROAD-guest/platforms/gf12.git (fetch)
+    # origin    /home/zf4_projects/OpenROAD-guest/platforms/gf12.git (fetch)
     for line in repos:
         if not line: # local repo (used for testing)
             return False
