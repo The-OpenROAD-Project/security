@@ -38,7 +38,8 @@ blocked_path_patterns = [
     r"sc\d+",    # ARM-style names
     r"cln\d+",   # eg CLN65 (for ARM)
     r"scc9gena", # Sky90 library
-    r"sky90"     # Sky90
+    r"sky90",    # Sky90
+    r"b15"       # Intel
 ]
 
 # Allowed paths are exceptions to blocked paths above.
