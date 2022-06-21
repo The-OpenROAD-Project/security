@@ -115,6 +115,7 @@ skip_content_patterns = [
     r"\.gif$",
     r"\.jpg$",
     r"\.png$",
+    r"\.webp$",
     r"\.pdf$",
     r"\.gif$",
     r"\.odt$",
