@@ -212,6 +212,68 @@ md5_whitelist = set((
     '87827d7810febeb69a0a19e9af520642', # flow/designs/sky130hd/microwatt/gds/Microwatt_FP_DFFRFile.gds.gz
     '287e146444ded121d259f82dfe8f3a28', # flow/designs/sky130hd/microwatt/gds/RAM512.gds.gz
     'cb1e9c44a755ceebeb846f33c658a0c8', # flow/designs/nangate45/mempool_tile/mempool_tile_wrap.v
+
+    'eeb17d41504b1c00c7f2dcb9068394e9', # flow/platforms/asap7/lib/asap7sc7p5t_AO_LVT_FF_nldm_211120.lib
+    'e0bf755d44fbf5bd0ab56e38eff99d30', # flow/platforms/asap7/lib/asap7sc7p5t_AO_LVT_SS_nldm_211120.lib
+    '3d34a74024fb048977a2a64d3b877ed4', # flow/platforms/asap7/lib/asap7sc7p5t_AO_LVT_TT_nldm_211120.lib
+    '4ab7811f2c051cf52e7acaab6b8f2271', # flow/platforms/asap7/lib/asap7sc7p5t_AO_RVT_FF_nldm_211120.lib
+    '40f0f11eb1cf9ed719d7a35bf02f45ed', # flow/platforms/asap7/lib/asap7sc7p5t_AO_RVT_SS_nldm_211120.lib
+    '018cca52aa26dd6b5988f602f79573cc', # flow/platforms/asap7/lib/asap7sc7p5t_AO_RVT_TT_nldm_211120.lib
+    '4686350746e96c87832a212ccc0e11d1', # flow/platforms/asap7/lib/asap7sc7p5t_AO_SLVT_FF_nldm_211120.lib
+    'f8567ed75247fdd4b2045b551f117002', # flow/platforms/asap7/lib/asap7sc7p5t_AO_SLVT_SS_nldm_211120.lib
+    'c0eb655da9d8b9065cef83fd2f9e4c41', # flow/platforms/asap7/lib/asap7sc7p5t_AO_SLVT_TT_nldm_211120.lib
+    'd2561b1cd20a0d3908ad09c3e21faaa4', # flow/platforms/asap7/lib/asap7sc7p5t_AO_SRAM_FF_nldm_211120.lib
+    'c193a820781df58232d955b497d7ea21', # flow/platforms/asap7/lib/asap7sc7p5t_AO_SRAM_SS_nldm_211120.lib
+    '86647167cc8baa250b859960f9b533b3', # flow/platforms/asap7/lib/asap7sc7p5t_AO_SRAM_TT_nldm_211120.lib
+    'afeae05e16e8dfa6e38908e09d6c8bef', # flow/platforms/asap7/lib/asap7sc7p5t_INVBUF_LVT_FF_nldm_220122.lib
+    'fca677b7a1902ce9b2ab76fe2d86e442', # flow/platforms/asap7/lib/asap7sc7p5t_INVBUF_LVT_SS_nldm_220122.lib
+    'c170651f484eded37af7b010ec201a3d', # flow/platforms/asap7/lib/asap7sc7p5t_INVBUF_LVT_TT_nldm_220122.lib
+    '584031b7f4a68c85843d3da44c67949f', # flow/platforms/asap7/lib/asap7sc7p5t_INVBUF_RVT_FF_nldm_220122.lib
+    'f750a5468f6821139ba137476a208dd7', # flow/platforms/asap7/lib/asap7sc7p5t_INVBUF_RVT_SS_nldm_220122.lib
+    'a6f01b9e832baa8758dde53d9a2fbc93', # flow/platforms/asap7/lib/asap7sc7p5t_INVBUF_RVT_TT_nldm_220122.lib
+    'dff6309638afa2d887d2943e87dd4b4e', # flow/platforms/asap7/lib/asap7sc7p5t_INVBUF_SLVT_FF_nldm_220122.lib
+    '0f3da098783edbb401f5a947d4442432', # flow/platforms/asap7/lib/asap7sc7p5t_INVBUF_SLVT_SS_nldm_220122.lib
+    '5048e252e88012afe9075684e6325f5b', # flow/platforms/asap7/lib/asap7sc7p5t_INVBUF_SLVT_TT_nldm_220122.lib
+    'dd5645097f05929e9a4ffd0ec200dbed', # flow/platforms/asap7/lib/asap7sc7p5t_INVBUF_SRAM_FF_nldm_220122.lib
+    'a95b60c08d73ffd59b6ee71bf6ca969c', # flow/platforms/asap7/lib/asap7sc7p5t_INVBUF_SRAM_SS_nldm_220122.lib
+    'e74f7e5a661aca152f1f8c3a19270e69', # flow/platforms/asap7/lib/asap7sc7p5t_INVBUF_SRAM_TT_nldm_220122.lib
+    'cc6c960e268ab3c616409b217d6b0011', # flow/platforms/asap7/lib/asap7sc7p5t_OA_LVT_FF_nldm_211120.lib
+    'c53933ff50d6e7bef5b08f339f19d6fa', # flow/platforms/asap7/lib/asap7sc7p5t_OA_LVT_SS_nldm_211120.lib
+    '8203bc5cdbda524b76bd28d35e630826', # flow/platforms/asap7/lib/asap7sc7p5t_OA_LVT_TT_nldm_211120.lib
+    'c4125f8e2f04e5941d92ab87d5567563', # flow/platforms/asap7/lib/asap7sc7p5t_OA_RVT_FF_nldm_211120.lib
+    '273f4ab932786264178704c121a9f3ea', # flow/platforms/asap7/lib/asap7sc7p5t_OA_RVT_SS_nldm_211120.lib
+    'ef8ca7b8be646b5b15ccdff776dcfa6d', # flow/platforms/asap7/lib/asap7sc7p5t_OA_RVT_TT_nldm_211120.lib
+    '411acd5b95f75cfc1405925ebd11780f', # flow/platforms/asap7/lib/asap7sc7p5t_OA_SLVT_FF_nldm_211120.lib
+    'e3807f5e91fcb915fe231d0ce60874cc', # flow/platforms/asap7/lib/asap7sc7p5t_OA_SLVT_SS_nldm_211120.lib
+    '698f21638c2040243bce6e57a0afd5ac', # flow/platforms/asap7/lib/asap7sc7p5t_OA_SLVT_TT_nldm_211120.lib
+    '71b17cbd42abf6d0d637da126e07772a', # flow/platforms/asap7/lib/asap7sc7p5t_OA_SRAM_FF_nldm_211120.lib
+    'ea7a2cd04f43ba04cb366207493b9d09', # flow/platforms/asap7/lib/asap7sc7p5t_OA_SRAM_SS_nldm_211120.lib
+    '97d9a921b9af593667db471d6b7bb885', # flow/platforms/asap7/lib/asap7sc7p5t_OA_SRAM_TT_nldm_211120.lib
+    '2b6ecf78280b0041b6043f36ae48a459', # flow/platforms/asap7/lib/asap7sc7p5t_SEQ_LVT_FF_nldm_220123.lib
+    'e94798d2fdbaa028d23cc2f6b5ef34d3', # flow/platforms/asap7/lib/asap7sc7p5t_SEQ_LVT_SS_nldm_220123.lib
+    '6c736d8c2f831822c45f38724b4ecb11', # flow/platforms/asap7/lib/asap7sc7p5t_SEQ_LVT_TT_nldm_220123.lib
+    '9ffdf5ebb0392aebaa1c976f8b3101d4', # flow/platforms/asap7/lib/asap7sc7p5t_SEQ_RVT_FF_nldm_220123.lib
+    '6866ea78346b3ac2a630bbd752a9c50f', # flow/platforms/asap7/lib/asap7sc7p5t_SEQ_RVT_SS_nldm_220123.lib
+    'b5e4b8552ecb6d07926b0d55a5c6361b', # flow/platforms/asap7/lib/asap7sc7p5t_SEQ_RVT_TT_nldm_220123.lib
+    'abfc07f4072a571e8835605a9cb5125d', # flow/platforms/asap7/lib/asap7sc7p5t_SEQ_SLVT_FF_nldm_220123.lib
+    '3d7ec4e7bcc3e4d34609aea76239a9d7', # flow/platforms/asap7/lib/asap7sc7p5t_SEQ_SLVT_SS_nldm_220123.lib
+    'cc4456a1a6af57c879cab6855aa4a733', # flow/platforms/asap7/lib/asap7sc7p5t_SEQ_SLVT_TT_nldm_220123.lib
+    'b1c83951043025a8764367e723083cda', # flow/platforms/asap7/lib/asap7sc7p5t_SEQ_SRAM_FF_nldm_220123.lib
+    '78d7269168f7a8510820267c4821b886', # flow/platforms/asap7/lib/asap7sc7p5t_SEQ_SRAM_SS_nldm_220123.lib
+    '108a8fab6d1b1a378017bb19efa7c5bb', # flow/platforms/asap7/lib/asap7sc7p5t_SEQ_SRAM_TT_nldm_220123.lib
+    '83993851d568ab1d10a81ac7d99aac52', # flow/platforms/asap7/lib/asap7sc7p5t_SIMPLE_LVT_FF_nldm_211120.lib
+    '5a023c4b5c68ee8ffa83818d4903e0f5', # flow/platforms/asap7/lib/asap7sc7p5t_SIMPLE_LVT_SS_nldm_211120.lib
+    '9c38e88ab287c2004e9eb2875b3b88bf', # flow/platforms/asap7/lib/asap7sc7p5t_SIMPLE_LVT_TT_nldm_211120.lib
+    '435aaa1153ef048e05ba455a8fc4e977', # flow/platforms/asap7/lib/asap7sc7p5t_SIMPLE_RVT_FF_nldm_211120.lib
+    'f295c7c36e208ae52f8f5d8e17005ca5', # flow/platforms/asap7/lib/asap7sc7p5t_SIMPLE_RVT_SS_nldm_211120.lib
+    '1a2d30afdfb8813fb887cc9a7e8853ce', # flow/platforms/asap7/lib/asap7sc7p5t_SIMPLE_RVT_TT_nldm_211120.lib
+    '5737757cde74a0f83b640b461fb5a21a', # flow/platforms/asap7/lib/asap7sc7p5t_SIMPLE_SLVT_FF_nldm_211120.lib
+    '7ddafeac4c032a4fb5dcd75566925e2a', # flow/platforms/asap7/lib/asap7sc7p5t_SIMPLE_SLVT_SS_nldm_211120.lib
+    '1e4b05df7fefb87a8512df34722d592d', # flow/platforms/asap7/lib/asap7sc7p5t_SIMPLE_SLVT_TT_nldm_211120.lib
+    'a45990f40a27ffb1a7cc18b49245381c', # flow/platforms/asap7/lib/asap7sc7p5t_SIMPLE_SRAM_FF_nldm_211120.lib
+    'ca2737548b647d564cd49491d5405253', # flow/platforms/asap7/lib/asap7sc7p5t_SIMPLE_SRAM_SS_nldm_211120.lib
+    '23c466ad629644d475ad9aea70c9d140', # flow/platforms/asap7/lib/asap7sc7p5t_SIMPLE_SRAM_TT_nldm_211120.lib
+
 ))
 
 md5_whitelist_cutoff = 15 * 1024 * 1024 # 15 Mb
