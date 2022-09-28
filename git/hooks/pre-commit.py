@@ -164,15 +164,26 @@ md5_whitelist = set((
     'b29ffb80bf70e61b7064796c8702eb45', # src/rcx/test/generate_pattern.spefok
     '0f1a956ff22a003be485a678b3877fd5', # src/rcx/test/generate_pattern.defok
     '303c92cc0ec313c0630d84f94313f6ac', # src/rcx/test/generate_pattern.vok
+    'e9e4daefed9083224832fbe262d0ea5d', # src/gpl/test/macro03.def
+    # old
     'd80867b517b2448febf60860bf663374', # src/gpl/test/large01.defok
     '1129d48daf4119864762d3afae44700c', # src/gpl/test/large01.def
     'f66e8a49010debd35833f159dad1d5c8', # src/gpl/test/large02.defok
     '8ce7ee36cde5a01fca6b800a4090c5dc', # src/gpl/test/large02.def
-    'e9e4daefed9083224832fbe262d0ea5d', # src/gpl/test/macro03.def
     'b49d16b2ca57c7dfe2e690bf1b4c0d57', # src/gpl/test/medium03.defok
     '965c8a3c3b424708583d48ee1f9ad931', # src/gpl/test/medium03.def
     '6725a64db47a2c4f3a9eba59c149ef66', # src/gpl/test/medium04.def
     '13bd6497ece4785e873ff699eef79f41', # src/gpl/test/medium04.defok
+    # updated
+    '48092fdbd5e37998adaef2115871a98a', # src/gpl/test/large01.defok
+    '8dd000d1523b1e464ffd5bd247dc481c', # src/gpl/test/large01.ok
+    '02f47f3b32749a009a32d912baf4bd4c', # src/gpl/test/large02.defok
+    'aaddd7334472fbc27ab6f77ba0335c3b', # src/gpl/test/large02.ok
+    'c1997dcf02807f3f73be35106fbd6de5', # src/gpl/test/medium03.defok
+    'a88e8d711c4176e2be10b943fda487c6', # src/gpl/test/medium03.ok
+    '365fb4b84cf6ff9bbb96ce24270ad008', # src/gpl/test/medium04.defok
+    'c15b28dcd183d5da0a31b9383080c392', # src/gpl/test/medium04.ok
+
     '338775fa5ff59a87225454f9e3fb7d33', # src/pdn/test/soc_bsg_black_parrot_nangate45.defok
     '11c59e5f428eb51deee617620ed585bf', # src/pdn/test/soc_bsg_black_parrot_nangate45.pad_offset.defok
     '0ade01392aacde0bc812c1d00d8af487', # src/pdn/test/pads_black_parrot.defok (old)
