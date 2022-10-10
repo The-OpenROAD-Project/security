@@ -70,6 +70,9 @@ class TestBlock(unittest.TestCase):
     def test_gf12_fails(self):
         self.do_test_bad_file('dir/some_gf12_data')
 
+    def test_gf180_allowed(self):
+        self.do_test_good_file('dir/some_gf180_data')
+
     def test_new_platform_fails(self):
         self.do_test_bad_file('flow/platforms/7nm')
 

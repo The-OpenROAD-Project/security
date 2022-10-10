@@ -33,7 +33,7 @@ blocked_path_patterns = [
     r"\.tar",
     r"tsmc",
     r"intel",
-    r"gf\d+",
+    r"gf(?!180)\d+", # Disallow gf12 but allow gf180
     r"\d+lp",    # Invecas
     r"sc\d+",    # ARM-style names
     r"cln\d+",   # eg CLN65 (for ARM)
