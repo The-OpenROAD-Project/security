@@ -59,6 +59,12 @@ class TestBlock(unittest.TestCase):
         # passes if no exception raised
         precommit.main(args)
 
+    def do_test_good_content(self, content=''):
+        'Create a file and make sure it is allowed by precommit content check'
+        self.add_file("test_file", content)
+        # passes if no exception raised
+        precommit.main(args)
+
     def do_test_bad_content(self, content=''):
         'Create a file and make sure it is block by precommit content check'
         self.add_file("test_file", content)
@@ -69,9 +75,6 @@ class TestBlock(unittest.TestCase):
     ## Blocked / allowed paths tests ##
     def test_gf12_fails(self):
         self.do_test_bad_file('dir/some_gf12_data')
-
-    def test_gf180_allowed(self):
-        self.do_test_good_file('dir/some_gf180_data')
 
     def test_new_platform_fails(self):
         self.do_test_bad_file('flow/platforms/7nm')
@@ -170,6 +173,9 @@ class TestBlock(unittest.TestCase):
 
     def test_cypress_content_fails(self):
         self.do_test_bad_content('\n\n\n  Cypress')
+
+    def test_gf180_content_allowed(self):
+        self.do_test_good_content('gf180 is public')
 
 if __name__ == '__main__':
     unittest.main()
