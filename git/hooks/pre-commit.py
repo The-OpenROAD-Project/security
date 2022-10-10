@@ -33,7 +33,7 @@ blocked_path_patterns = [
     r"\.tar",
     r"tsmc",
     r"intel",
-    r"gf(?!180)\d+", # Disallow gf12 but allow gf180
+    r"gf\d+", 
     r"\d+lp",    # Invecas
     r"sc\d+",    # ARM-style names
     r"cln\d+",   # eg CLN65 (for ARM)
@@ -102,7 +102,7 @@ allowed_path_patterns = [
 # Uses compiled expression for performance.
 block_content_patterns = \
     re.compile(r"""
-       gf\d\d+    # eg gf12, gf14
+       gf(?!180)\d\d+ # Disallow gf12 but allow gf180
      | tsmc       # eg tsmc65lp
      | \d+lp      # eg 12LP (for Invecus)
      | \barm\b    # eg ARM
