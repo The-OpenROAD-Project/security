@@ -102,7 +102,7 @@ allowed_path_patterns = [
 # Uses compiled expression for performance.
 block_content_patterns = \
     re.compile(r"""
-       gf(?!180)\d\d+ # Disallow gf12 but allow gf180
+       gf(?!(180|018))\d\d+ # Disallow gf12 but allow gf180
      | tsmc       # eg tsmc65lp
      | \d+lp      # eg 12LP (for Invecus)
      | \barm\b    # eg ARM
