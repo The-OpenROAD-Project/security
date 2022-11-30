@@ -121,6 +121,7 @@ skip_content_patterns = [
     r"\.gif$",
     r"\.odt$",
     r"\.xlsx$",
+    r"\.ipynb$",
     r"\.a$",
     r"^src/sta/app/sta$",
     r"\.dat$",  # eg POWV9.dat
