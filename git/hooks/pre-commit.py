@@ -91,6 +91,7 @@ allowed_path_patterns = [
     r"^(tools/OpenROAD/)?src/TritonCTS/test",
     r"^(tools/OpenROAD/)?src/PDNSim/test",
     r"^(tools/OpenROAD/)?test",
+    r"^(tools/OpenROAD/)?third-party/abc",
     r"^tools/yosys",
 ]
 
