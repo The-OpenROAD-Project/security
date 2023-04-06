@@ -343,7 +343,7 @@ def check_content(name, args, whole_file=False):
         print("Skipping content check on subdir {}".format(name))
         return
 
-    if whole_file:
+    if whole_file or name.endswith('.gz'):
         if os.path.islink(name):
             if args.verbose:
                 print("Skipping link", name)
