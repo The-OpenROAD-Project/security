@@ -46,6 +46,7 @@ blocked_path_patterns = [
 allowed_path_patterns = [
     r"^\.git/",
     r"^\.gitignore",
+    r"^flow/\.gitignore",
     r"^flow/designs",
     r"^flow/docs",
     r"^flow/platforms/nangate45",
