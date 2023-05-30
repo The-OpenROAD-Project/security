@@ -84,6 +84,7 @@ allowed_path_patterns = [
     r"^(tools/OpenROAD/)?src/rsz/test",
     r"^(tools/OpenROAD/)?src/tap/test",
     r"^(tools/OpenROAD/)?src/par/test",
+    r"^(tools/OpenROAD/)?src/par/examples",
     r"^(tools/OpenROAD/)?src/drt/test",
     r"^(tools/OpenROAD/)?src/stt/test",
     r"^(tools/OpenROAD/)?src/psm/test",
@@ -128,6 +129,7 @@ skip_content_patterns = [
     r"\.odt$",
     r"\.xlsx$",
     r"\.ipynb$",
+    r"\.vcd$",
     r"\.a$",
     r"^src/sta/app/sta$",
     r"\.dat$",  # eg POWV9.dat
@@ -192,6 +194,9 @@ md5_whitelist = set((
     'a88e8d711c4176e2be10b943fda487c6', # src/gpl/test/medium03.ok
     '365fb4b84cf6ff9bbb96ce24270ad008', # src/gpl/test/medium04.defok
     'c15b28dcd183d5da0a31b9383080c392', # src/gpl/test/medium04.ok
+
+    '35ddd551d88d1e491c939c6fc551e625', # src/par/examples/embedding-aware-partitioning/sparcT1_chip2.hgr
+    'bc2394711bc7c8266d24e6bb43a0c061', # src/par/examples/timing-aware-partitioning/ariane.v
 
     '338775fa5ff59a87225454f9e3fb7d33', # src/pdn/test/soc_bsg_black_parrot_nangate45.defok
     '11c59e5f428eb51deee617620ed585bf', # src/pdn/test/soc_bsg_black_parrot_nangate45.pad_offset.defok
