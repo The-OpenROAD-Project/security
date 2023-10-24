@@ -53,6 +53,7 @@ allowed_path_patterns = [
     r"^flow/platforms/sky130",
     r"^flow/platforms/asap7",
     r"^flow/platforms/gf180",
+    r"^flow/platforms/ihp-sg13g2",
     r"^flow/scripts",
     r"^flow/test",
     r"^flow/tutorials",
