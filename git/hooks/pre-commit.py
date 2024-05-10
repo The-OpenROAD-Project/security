@@ -305,7 +305,8 @@ md5_whitelist = set((
     'a45990f40a27ffb1a7cc18b49245381c', # flow/platforms/asap7/lib/asap7sc7p5t_SIMPLE_SRAM_FF_nldm_211120.lib
     'ca2737548b647d564cd49491d5405253', # flow/platforms/asap7/lib/asap7sc7p5t_SIMPLE_SRAM_SS_nldm_211120.lib
     '23c466ad629644d475ad9aea70c9d140', # flow/platforms/asap7/lib/asap7sc7p5t_SIMPLE_SRAM_TT_nldm_211120.lib
-
+    '7f8441e44c293e86ba66bd955e5fefec', # flow/platforms/asap7/lib/CCS/asap7sc7p5t_AO_RVT_FF_ccs_211120.lib.gz
+    '018308643b530d5f132e306d59912188', # flow/platforms/asap7/lib/CCS/asap7sc7p5t_OA_RVT_FF_ccs_211120.lib.gz
 ))
 
 md5_whitelist_cutoff = 15 * 1024 * 1024 # 15 Mb
