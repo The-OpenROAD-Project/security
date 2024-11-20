@@ -183,7 +183,8 @@ md5_whitelist = set((
     '63f66e54f4d04b374e60756388e9c116', # test/sky130hs/sky130_fd_sc_hs__tt_025C_1v80.lib for pdn repair channel
     '7a1179ac0a93781ffdb07090ba8cf260', # test/sky130hd/sky130_fd_sc_hd__ff_n40C_1v95.lib
     'b29ffb80bf70e61b7064796c8702eb45', # src/rcx/test/generate_pattern.spefok
-    '0f1a956ff22a003be485a678b3877fd5', # src/rcx/test/generate_pattern.defok
+    '0f1a956ff22a003be485a678b3877fd5', # src/rcx/test/generate_pattern.defok (old)
+    '4a36906520787cf238738a3cb6f46504', # src/rcx/test/generate_pattern.defok
     '303c92cc0ec313c0630d84f94313f6ac', # src/rcx/test/generate_pattern.vok
     'e9e4daefed9083224832fbe262d0ea5d', # src/gpl/test/macro03.def
     # old
