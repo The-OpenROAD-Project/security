@@ -199,6 +199,7 @@ md5_whitelist = set((
     '13bd6497ece4785e873ff699eef79f41', # src/gpl/test/medium04.defok
     # updated
     '48092fdbd5e37998adaef2115871a98a', # src/gpl/test/large01.defok
+    '9ec56d19ec70f5574c77d0f6c306ded1', # src/gpl/test/large01.defok (newer)
     '8dd000d1523b1e464ffd5bd247dc481c', # src/gpl/test/large01.ok
     '02f47f3b32749a009a32d912baf4bd4c', # src/gpl/test/large02.defok
     '61bc5fe661f07ec1916bec73174d8352', # src/gpl/test/large02.defok (newer)
