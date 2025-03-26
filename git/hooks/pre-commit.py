@@ -346,7 +346,7 @@ def error(msg):
 def run_command(command):
     r = subprocess.run(command,
                        stdout=subprocess.PIPE,
-                       encoding='utf-8',
+                       encoding='latin-1',
                        shell=True)
     r.check_returncode()
 
