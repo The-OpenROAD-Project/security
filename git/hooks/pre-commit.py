@@ -143,6 +143,7 @@ skip_content_patterns = [
     r"\.dat$",  # eg POWV9.dat
     r"\.gds(\.orig)?$",
     r"^README.md$",
+    r"^flake.lock$",
     r"^(tools/OpenROAD/)?docs/index.(md|rst)$",
     r"^(tools/OpenROAD/)?docs/user/GettingStarted.(md|rst)$",
     r"^flow/README.md$", 
