@@ -151,6 +151,7 @@ skip_content_patterns = [
     r"^(tools/OpenROAD/)?src/drt/src", # until cleaned up
     r"^(tools/OpenROAD/)?src/drt/cmake", # .../intel/vtune
     r"^(tools/OpenROAD/)?src/gpl/README.md$",
+    r"^(tools/OpenROAD/)?src/sta/README.md$",
     r"^(tools/OpenROAD/)?third-party/abc",
     r"^(flow/platforms/)?sky130hd/chameleon",
     r"^(flow/designs/)?sky130hd/chameleon",
