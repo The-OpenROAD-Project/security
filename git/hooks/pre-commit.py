@@ -208,6 +208,7 @@ md5_whitelist = set((
     '61bc5fe661f07ec1916bec73174d8352', # src/gpl/test/large02.defok (newer)
     'ca9aa1d30e266785d6eaf479210efb08', # src/gpl/test/large02.defok (newer2)
     '95fa4b1e2e9c42988c686d65dccefa64', # src/gpl/test/macro03.defok
+    'c620676d83b1471dfd0c4f81d75cdf57', # src/gpl/test/macro03.defok (newer)
     'c1997dcf02807f3f73be35106fbd6de5', # src/gpl/test/medium03.defok
     'ef74164a008f3750d39096d2eadc0265', # src/gpl/test/medium03.defok (newer)
     '365fb4b84cf6ff9bbb96ce24270ad008', # src/gpl/test/medium04.defok
