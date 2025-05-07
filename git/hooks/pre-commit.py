@@ -203,15 +203,15 @@ md5_whitelist = set((
     # updated
     '48092fdbd5e37998adaef2115871a98a', # src/gpl/test/large01.defok
     '9ec56d19ec70f5574c77d0f6c306ded1', # src/gpl/test/large01.defok (newer)
-    '8dd000d1523b1e464ffd5bd247dc481c', # src/gpl/test/large01.ok
+    '89c746fad8d8be15d8be15af595cd981', # src/gpl/test/large01.defok (newer2)
     '02f47f3b32749a009a32d912baf4bd4c', # src/gpl/test/large02.defok
     '61bc5fe661f07ec1916bec73174d8352', # src/gpl/test/large02.defok (newer)
-    'aaddd7334472fbc27ab6f77ba0335c3b', # src/gpl/test/large02.ok
+    'ca9aa1d30e266785d6eaf479210efb08', # src/gpl/test/large02.defok (newer2)
     '95fa4b1e2e9c42988c686d65dccefa64', # src/gpl/test/macro03.defok
     'c1997dcf02807f3f73be35106fbd6de5', # src/gpl/test/medium03.defok
-    'a88e8d711c4176e2be10b943fda487c6', # src/gpl/test/medium03.ok
+    'ef74164a008f3750d39096d2eadc0265', # src/gpl/test/medium03.defok (newer)
     '365fb4b84cf6ff9bbb96ce24270ad008', # src/gpl/test/medium04.defok
-    'c15b28dcd183d5da0a31b9383080c392', # src/gpl/test/medium04.ok
+    '9a16d85d525202df02bece2e47df6deb', # src/gpl/test/medium04.defok (newer)
 
     '35ddd551d88d1e491c939c6fc551e625', # src/par/examples/embedding-aware-partitioning/sparcT1_chip2.hgr
     'bc2394711bc7c8266d24e6bb43a0c061', # src/par/examples/timing-aware-partitioning/ariane.v
