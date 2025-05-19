@@ -33,9 +33,11 @@ blocked_path_patterns = [
     r"\.tar",
     r"tsmc",
     r"intel",
+    r"rapidus",
     r"gf\d+", 
     r"\d+lp",    # Invecas
-    r"sc\d+",    # ARM-style names
+    r"sc\d+",    # ARM/Rapidus-style names
+    r"cmos\d+",   # Rapidus-style names
     r"cln\d+",   # eg CLN65 (for ARM)
     r"scc9gena", # Sky90 library
     r"sky90",    # Sky90
@@ -123,6 +125,7 @@ block_content_patterns = \
      | \barm\b    # eg ARM
      | cln\d+     # eg CLN65 (for ARM)
      | cypress    # eg Cypress Semiconductor
+     | rapidus    # eg Rapidus
      | intel(?!l) # eg Intel (but not intelligent)
     """, re.VERBOSE | re.IGNORECASE)
 

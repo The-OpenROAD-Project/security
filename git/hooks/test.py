@@ -119,6 +119,12 @@ class TestBlock(unittest.TestCase):
     def test_arm_fails(self):
         self.do_test_bad_file('sc9mcpp84_12lp_base_rvt')
 
+    def test_rapidus_fails(self):
+        self.do_test_bad_file('SC2HP')
+
+    def test_rapidus2_fails(self):
+        self.do_test_bad_file('cmos2hp_tech')
+
     def test_flow_allowed_only_if_at_start_of_path(self):
         self.do_test_bad_file('gf14/flow/designs')
 
@@ -173,6 +179,9 @@ class TestBlock(unittest.TestCase):
 
     def test_cypress_content_fails(self):
         self.do_test_bad_content('\n\n\n  Cypress')
+
+    def test_rapidus_content_fails(self):
+        self.do_test_bad_content('\n\n\n  Rapidus')
 
     def test_gf180_content_allowed(self):
         self.do_test_good_content('gf180 is public')
