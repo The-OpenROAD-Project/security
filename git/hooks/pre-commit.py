@@ -152,6 +152,7 @@ skip_content_patterns = [
     r"^flow/README.md$", 
     r"^flow/platforms/asap7/README.md$",
     r"^(tools/OpenROAD/)?bazel/openmp/kmp_i18n_default.inc",
+    r"^(tools/OpenROAD/)?bazel/openmp/kmp_config.h",
     r"^(tools/OpenROAD/)?src/drt/src", # until cleaned up
     r"^(tools/OpenROAD/)?src/drt/cmake", # .../intel/vtune
     r"^(tools/OpenROAD/)?src/gpl/README.md$",
