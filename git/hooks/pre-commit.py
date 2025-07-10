@@ -35,9 +35,10 @@ blocked_path_patterns = [
     r"intel",
     r"rapidus",
     r"gf\d+", 
+    r"ca\d+",    # ARM cores
     r"\d+lp",    # Invecas
     r"sc\d+",    # ARM/Rapidus-style names
-    r"cmos\d+",   # Rapidus-style names
+    r"cmos\d+",  # Rapidus-style names
     r"cln\d+",   # eg CLN65 (for ARM)
     r"scc9gena", # Sky90 library
     r"sky90",    # Sky90
