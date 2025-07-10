@@ -172,6 +172,7 @@ skip_content_patterns = [
     r"^flow/designs/.*/wrappers.tcl$",
     r"^flow/designs/.*/macros.v$",
     r"^flow/designs/src/.*\.sv2v\.v$",
+    r"^flow/designs/rapidus2hp/README.md$",
     r"^flow/scripts/add_routing_blk.tcl$",
     r"^flow/scripts/floorplan.tcl$",
     r"^flow/test/core_tests.sh$",
