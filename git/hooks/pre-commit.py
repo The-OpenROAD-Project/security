@@ -22,7 +22,7 @@ file_change_limit = 50
 blocked_path_patterns = [
     r"flow/",
     r"\.gds",
-    r"\.lef",
+    r"\.t?lef",
     r"\.def$",
     r"\.cdl",
     r"\.cal",
@@ -38,11 +38,13 @@ blocked_path_patterns = [
     r"ca\d+",    # ARM cores
     r"\d+lp",    # Invecas
     r"sc\d+",    # ARM/Rapidus-style names
+    r"sch\d+",   # ARM-style names
     r"cmos\d+",  # Rapidus-style names
     r"cln\d+",   # eg CLN65 (for ARM)
     r"scc9gena", # Sky90 library
     r"sky90",    # Sky90
-    r"b15"       # Intel
+    r"b15",      # Intel
+    r"prtf_"     # PnR Tech File
 ]
 
 # Allowed paths are exceptions to blocked paths above.
@@ -126,6 +128,7 @@ block_content_patterns = \
      | \d+lp      # eg 12LP (for Invecus)
      | \barm\b    # eg ARM
      | cln\d+     # eg CLN65 (for ARM)
+     | sch\d+     # ARM-style
      | cypress    # eg Cypress Semiconductor
      | rapidus    # eg Rapidus
      | intel(?!l) # eg Intel (but not intelligent)

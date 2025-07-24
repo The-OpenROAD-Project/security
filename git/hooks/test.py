@@ -118,6 +118,7 @@ class TestBlock(unittest.TestCase):
 
     def test_arm_fails(self):
         self.do_test_bad_file('sc9mcpp84_12lp_base_rvt')
+        self.do_test_bad_file('sc300mcpp')
 
     def test_rapidus_fails(self):
         self.do_test_bad_file('SC2HP')
