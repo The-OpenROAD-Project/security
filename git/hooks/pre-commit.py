@@ -201,14 +201,17 @@ md5_whitelist = set((
     '119372cf939e41b7ddf24fb5758a750d', # src/rcx/test/generate_pattern.vok
     'e9e4daefed9083224832fbe262d0ea5d', # src/gpl/test/macro03.def
     # old
+    'a18ab004e747067cfd2a3569becb9799', # src/gpl/test/large01.defok
     'd80867b517b2448febf60860bf663374', # src/gpl/test/large01.defok
     '1129d48daf4119864762d3afae44700c', # src/gpl/test/large01.def
     '34176aa8aa0dac9e2ec35dc0adf21111', # src/gpl/test/large02.defok
     'f66e8a49010debd35833f159dad1d5c8', # src/gpl/test/large02.defok
     '8ce7ee36cde5a01fca6b800a4090c5dc', # src/gpl/test/large02.def
-    'b49d16b2ca57c7dfe2e690bf1b4c0d57', # src/gpl/test/medium03.defok
+    '5271a85ed1a4a7eaaf7b6a582a4b9303', # src/gpl/test/medium03.defok
+    'b49d16b2ca57c7dfe2e690bf1b4c0d57', # src/gpl/test/medium03.defok    
     '965c8a3c3b424708583d48ee1f9ad931', # src/gpl/test/medium03.def
     '6725a64db47a2c4f3a9eba59c149ef66', # src/gpl/test/medium04.def
+    '988deaa7d5f05ea628b62c7f19791b0a', # src/gpl/test/medium04.defok
     'be58f86f1b0698cb134dd6801629c137', # src/gpl/test/medium04.defok
     '13bd6497ece4785e873ff699eef79f41', # src/gpl/test/medium04.defok
     # updated
@@ -219,6 +222,7 @@ md5_whitelist = set((
     '02f47f3b32749a009a32d912baf4bd4c', # src/gpl/test/large02.defok
     '61bc5fe661f07ec1916bec73174d8352', # src/gpl/test/large02.defok (newer)
     'ca9aa1d30e266785d6eaf479210efb08', # src/gpl/test/large02.defok (newer2)
+    '6b096ad64ff5d9abd439cf1e0fb5d647', # src/gpl/test/macro03.defok
     '95fa4b1e2e9c42988c686d65dccefa64', # src/gpl/test/macro03.defok
     'c620676d83b1471dfd0c4f81d75cdf57', # src/gpl/test/macro03.defok (newer)
     '7fcd444afa171027a2173fdb47eb559e', # src/gpl/test/macro03.defok (newer2)
