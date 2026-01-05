@@ -166,6 +166,7 @@ skip_content_patterns = [
     r"^(flow/designs/)?sky130hd/chameleon",
     r"^tools/yosys/",
     r"^\.git/",
+    r"^flow/designs/rapidus2hp/cva6/test/test_params.py$",
     r"^flow/designs/.*/metadata.*-ok.json$",
     r"^flow/designs/.*/config.mk$",
     r"^flow/designs/.*/config_mpl2.mk$",
