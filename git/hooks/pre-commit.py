@@ -167,6 +167,7 @@ skip_content_patterns = [
     r"^tools/yosys/",
     r"^\.git/",
     r"^flow/designs/rapidus2hp/.*/test/test_params.py$",
+    r"^flow/designs/rapidus2hp/utils/run_tests.sh$",
     r"^flow/designs/rapidus2hp/utils/.*.py$",
     r"^flow/designs/.*/metadata.*-ok.json$",
     r"^flow/designs/.*/config.mk$",
