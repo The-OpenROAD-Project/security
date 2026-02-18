@@ -345,6 +345,21 @@ md5_whitelist = set((
     '23c466ad629644d475ad9aea70c9d140', # flow/platforms/asap7/lib/asap7sc7p5t_SIMPLE_SRAM_TT_nldm_211120.lib
     '7f8441e44c293e86ba66bd955e5fefec', # flow/platforms/asap7/lib/CCS/asap7sc7p5t_AO_RVT_FF_ccs_211120.lib.gz
     '018308643b530d5f132e306d59912188', # flow/platforms/asap7/lib/CCS/asap7sc7p5t_OA_RVT_FF_ccs_211120.lib.gz
+
+    # OpenSTA
+    '3fa1a5d94780850c447328ef58818426', # examples/gcd_sky130hd.saif.gz
+    'ca325c1b3482d140c1409cfb272b40a7', # examples/gcd_sky130hd.vcd.gz
+    '8fedead39f8766a68a63a98440142acb', # examples/nangate45_fast.lib.gz
+    '3b9185eaab013165d0f5a89f7d9d1a2e', # examples/nangate45_slow.lib.gz
+    'c94625809f3bfffb31d95e58111f859c', # examples/nangate45_typ.lib.gz
+    '1d4440cf42648d62aea5ef6ebbd58aca', # examples/sky130hd_tt.lib.gz
+    'b26c167162182b8d547688d14defa593', # test/asap7_ccsn.lib.gz
+    '8c820a36d21636ae40525762d2db2ae1', # test/asap7_invbuf.lib.gz
+    'edbe2ddcdeb34b419803621f26647ef3', # test/asap7_seq.lib.gz
+    '2b348a7b70ad3fef5afe6502359cfe78', # test/asap7_simple.lib.gz
+    'eb6adcd27132d75e4d27b0c25236d2ef', # test/asap7_small.lib.gz
+    '2ff6395a7d53f7f5e83611150f7754ef', # test/gf180mcu_sram.lib.gz
+
 ))
 
 md5_whitelist_cutoff = 15 * 1024 * 1024 # 15 Mb
