@@ -113,18 +113,7 @@ allowed_path_patterns = [
     r"^tools/yosys",
 
     # OpenSTA
-    r"^examples/gcd_sky130hd.saif.gz",
-    r"^examples/gcd_sky130hd.vcd.gz",
-    r"^examples/nangate45_fast.lib.gz",
-    r"^examples/nangate45_slow.lib.gz",
-    r"^examples/nangate45_typ.lib.gz",
-    r"^examples/sky130hd_tt.lib.gz",
-    r"^test/asap7_ccsn.lib.gz",
-    r"^test/asap7_invbuf.lib.gz",
-    r"^test/asap7_seq.lib.gz",
-    r"^test/asap7_simple.lib.gz",
-    r"^test/asap7_small.lib.gz",
-    r"^test/gf180mcu_sram.lib.gz",
+    r"^examples",
 
 ]
 
