@@ -34,7 +34,7 @@ blocked_path_patterns = [
     r"tsmc",
     r"intel",
     r"rapidus",
-    r"gf\d+", 
+    r"gf\d+",
     r"ca\d+",    # ARM cores
     r"\d+lp",    # Invecas
     r"sc\d+",    # ARM/Rapidus-style names
@@ -111,6 +111,21 @@ allowed_path_patterns = [
     r"^(tools/OpenROAD/)?test",
     r"^(tools/OpenROAD/)?third-party/abc",
     r"^tools/yosys",
+
+    # OpenSTA
+    r"^examples/gcd_sky130hd.saif.gz",
+    r"^examples/gcd_sky130hd.vcd.gz",
+    r"^examples/nangate45_fast.lib.gz",
+    r"^examples/nangate45_slow.lib.gz",
+    r"^examples/nangate45_typ.lib.gz",
+    r"^examples/sky130hd_tt.lib.gz",
+    r"^test/asap7_ccsn.lib.gz",
+    r"^test/asap7_invbuf.lib.gz",
+    r"^test/asap7_seq.lib.gz",
+    r"^test/asap7_simple.lib.gz",
+    r"^test/asap7_small.lib.gz",
+    r"^test/gf180mcu_sram.lib.gz",
+
 ]
 
 # Files may not contain these patterns in their content anywhere (not
@@ -152,7 +167,7 @@ skip_content_patterns = [
     r"^flake.lock$",
     r"^(tools/OpenROAD/)?docs/index.(md|rst)$",
     r"^(tools/OpenROAD/)?docs/user/GettingStarted.(md|rst)$",
-    r"^flow/README.md$", 
+    r"^flow/README.md$",
     r"^flow/platforms/asap7/README.md$",
     r"^(tools/OpenROAD/)?bazel/openmp/kmp_i18n_default.inc",
     r"^(tools/OpenROAD/)?bazel/openmp/kmp_config.h",
@@ -212,7 +227,7 @@ md5_whitelist = set((
     'f66e8a49010debd35833f159dad1d5c8', # src/gpl/test/large02.defok
     '8ce7ee36cde5a01fca6b800a4090c5dc', # src/gpl/test/large02.def
     '5271a85ed1a4a7eaaf7b6a582a4b9303', # src/gpl/test/medium03.defok
-    'b49d16b2ca57c7dfe2e690bf1b4c0d57', # src/gpl/test/medium03.defok    
+    'b49d16b2ca57c7dfe2e690bf1b4c0d57', # src/gpl/test/medium03.defok
     '965c8a3c3b424708583d48ee1f9ad931', # src/gpl/test/medium03.def
     '6725a64db47a2c4f3a9eba59c149ef66', # src/gpl/test/medium04.def
     '988deaa7d5f05ea628b62c7f19791b0a', # src/gpl/test/medium04.defok
@@ -249,7 +264,7 @@ md5_whitelist = set((
     '543f979cbf751130966023008ae832bd', # src/pdn/test/pads_black_parrot_flipchip.defok (new)
     'a080f178c55b63accb6f2c5245625221', # src/psm/test/sky130hd_data/zerosoc_pads.def
     'b31c5d6f621f1a227736e55591553393', # updated of above zerosoc_pads.def
-    
+
     # OpenROAD-flow-scripts
     '2d74c6a29a8cd18536ec332accfa76d1', # flow/platforms/sky130ram/sky130_sram_1rw1r_80x64_8/sky130_sram_1rw1r_80x64_8.lef
     '17d9ce812cf1b635c392750ac0ec69c3', # flow/platforms/sky130ram/sky130_sram_1rw1r_128x256_8/sky130_sram_1rw1r_128x256_8.lef
