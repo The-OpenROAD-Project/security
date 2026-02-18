@@ -103,8 +103,8 @@ allowed_path_patterns = [
     r"^(tools/OpenROAD/)?src/rcx/test",
     r"^(tools/OpenROAD/)?src/rmp/test",
     r"^(tools/OpenROAD/)?src/rsz/test",
-    r"^(tools/OpenROAD/)?src/sta/examples",
-    r"^(tools/OpenROAD/)?src/sta/test",
+    r"^(?:tools/OpenROAD/)?(?:src/sta/)?examples",
+    r"^(?:tools/OpenROAD/)?(?:src/sta/)?test",
     r"^(tools/OpenROAD/)?src/stt/test",
     r"^(tools/OpenROAD/)?src/tap/test",
     r"^(tools/OpenROAD/)?src/upf/test",
@@ -163,8 +163,8 @@ skip_content_patterns = [
     r"^(tools/OpenROAD/)?src/drt/src", # until cleaned up
     r"^(tools/OpenROAD/)?src/drt/cmake", # .../intel/vtune
     r"^(tools/OpenROAD/)?src/gpl/README.md$",
-    r"^(tools/OpenROAD/)?src/sta/README.md$",
-    r"^(tools/OpenROAD/)?src/sta/examples/gcd_sky130hd.vcd.gz$",
+    r"^(?:tools/OpenROAD/)?(?:src/sta/)?README.md$",
+    r"^(?:tools/OpenROAD/)?(?:src/sta/)?examples/gcd_sky130hd.vcd.gz$"
     r"^(tools/OpenROAD/)?third-party/abc",
     r"^(tools/OpenROAD/)?MODULE.bazel",
     r"^(flow/platforms/)?sky130hd/chameleon",
