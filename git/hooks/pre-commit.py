@@ -111,10 +111,21 @@ allowed_path_patterns = [
     r"^(tools/OpenROAD/)?test",
     r"^(tools/OpenROAD/)?third-party/abc",
     r"^tools/yosys",
-
+    
     # OpenSTA
     r"^examples",
-
+    r"^(tools/OpenROAD/src/OpenSTA)?dcalc/test",
+    r"^(tools/OpenROAD/src/OpenSTA)?graph/test",
+    r"^(tools/OpenROAD/src/OpenSTA)?liberty/test",
+    r"^(tools/OpenROAD/src/OpenSTA)?network/test",
+    r"^(tools/OpenROAD/src/OpenSTA)?parasitics/test",
+    r"^(tools/OpenROAD/src/OpenSTA)?power/test",
+    r"^(tools/OpenROAD/src/OpenSTA)?sdc/test",
+    r"^(tools/OpenROAD/src/OpenSTA)?sdf/test",
+    r"^(tools/OpenROAD/src/OpenSTA)?search/test",
+    r"^(tools/OpenROAD/src/OpenSTA)?spice/test",
+    r"^(tools/OpenROAD/src/OpenSTA)?util/test",
+    r"^(tools/OpenROAD/src/OpenSTA)?verilog/test",
 ]
 
 # Files may not contain these patterns in their content anywhere (not
