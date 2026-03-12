@@ -110,6 +110,8 @@ allowed_path_patterns = [
     r"^(tools/OpenROAD/)?src/stt/test",
     r"^(tools/OpenROAD/)?src/tap/test",
     r"^(tools/OpenROAD/)?src/upf/test",
+    r"^(tools/OpenROAD/)?src/web/test",
+    r"^(tools/OpenROAD/)?src/web/pnpm-lock.yaml",
     r"^(tools/OpenROAD/)?test",
     r"^(tools/OpenROAD/)?third-party/abc",
     r"^tools/yosys",
