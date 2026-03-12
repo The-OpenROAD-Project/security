@@ -59,6 +59,7 @@ allowed_path_patterns = [
     r"^flow/platforms/asap7",
     r"^flow/platforms/gf180",
     r"^flow/platforms/ihp-sg13g2",
+    r"^flow/platforms/ihp-sg13cmos5l",
     r"^flow/platforms/common",
     r"^flow/scripts",
     r"^flow/settings.mk",
