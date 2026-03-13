@@ -111,7 +111,6 @@ allowed_path_patterns = [
     r"^(tools/OpenROAD/)?src/tap/test",
     r"^(tools/OpenROAD/)?src/upf/test",
     r"^(tools/OpenROAD/)?src/web/test",
-    r"^(tools/OpenROAD/)?src/web/pnpm-lock.yaml",
     r"^(tools/OpenROAD/)?test",
     r"^(tools/OpenROAD/)?third-party/abc",
     r"^tools/yosys",
@@ -178,6 +177,7 @@ skip_content_patterns = [
     r"^(tools/OpenROAD/)?src/drt/src", # until cleaned up
     r"^(tools/OpenROAD/)?src/drt/cmake", # .../intel/vtune
     r"^(tools/OpenROAD/)?src/gpl/README.md$",
+    r"^(tools/OpenROAD/)?src/web/pnpm-lock.yaml$",
     r"^(?:tools/OpenROAD/)?(?:src/sta/)?README.md$",
     r"^(?:tools/OpenROAD/)?(?:src/sta/)?examples/gcd_sky130hd.vcd.gz$",
     r"^(tools/OpenROAD/)?third-party/abc",
