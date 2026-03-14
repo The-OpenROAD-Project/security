@@ -148,6 +148,7 @@ block_content_patterns = \
      | cypress    # eg Cypress Semiconductor
      | rapidus    # eg Rapidus
      | intel(?!l) # eg Intel (but not intelligent)
+     | verific\b  # eg Verific (but not verification)
     """, re.VERBOSE | re.IGNORECASE)
 
 # Files to skip content checks on
