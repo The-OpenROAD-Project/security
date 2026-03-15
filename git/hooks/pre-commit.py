@@ -187,6 +187,7 @@ skip_content_patterns = [
     r"^(flow/designs/)?sky130hd/chameleon",
     r"^tools/yosys/",
     r"^\.git/",
+    r"^build_openroad.sh$",
     r"^flow/designs/rapidus2hp/.*/test/test_params.py$",
     r"^flow/designs/rapidus2hp/utils/run_tests.sh$",
     r"^flow/designs/rapidus2hp/utils/.*.py$",
