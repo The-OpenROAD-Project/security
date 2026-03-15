@@ -202,6 +202,7 @@ skip_content_patterns = [
     r"^flow/designs/rapidus2hp/README.md$",
     r"^flow/scripts/add_routing_blk.tcl$",
     r"^flow/scripts/floorplan.tcl$",
+    r"^flow/scripts/synth_preamble.tcl",
     r"^flow/test/core_tests.sh$",
     r"^flow/test/smoke.sh$",
     r"^flow/util/cell-veneer/wrap_stdcells.tcl",
