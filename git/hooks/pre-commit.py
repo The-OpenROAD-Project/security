@@ -201,6 +201,7 @@ skip_content_patterns = [
     r"^tools/yosys/",
     r"^\.git/",
     r"^build_openroad.sh$",
+    r"^docker/Dockerfile.builder$",
     r"^flow/designs/rapidus2hp/.*/test/test_params.py$",
     r"^flow/designs/rapidus2hp/utils/run_tests.sh$",
     r"^flow/designs/rapidus2hp/utils/.*.py$",
