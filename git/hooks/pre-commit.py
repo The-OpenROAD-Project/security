@@ -191,6 +191,7 @@ skip_content_patterns = [
     r"^(tools/OpenROAD/)?src/drt/cmake", # .../intel/vtune
     r"^(tools/OpenROAD/)?src/gpl/README.md$",
     r"^(tools/OpenROAD/)?src/web/pnpm-lock.yaml$",
+    r"^(tools/OpenROAD/)?src/web/test/pnpm-lock.yaml$",
     r"^(?:tools/OpenROAD/)?(?:src/sta/)?README.md$",
     r"^(?:tools/OpenROAD/)?(?:src/sta/)?examples/gcd_sky130hd.vcd.gz$",
     r"^(?:tools/OpenROAD/)?(?:src/sta/)?search/Sta.cc$",
