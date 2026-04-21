@@ -120,6 +120,8 @@ allowed_path_patterns = [
     r"^(?:tools/OpenROAD/)?(?:src/sta/)?util/test",
     r"^(?:tools/OpenROAD/)?(?:src/sta/)?verilog/test",
     r"^(tools/OpenROAD/)?src/stt/test",
+    r"^(tools/OpenROAD/)?src/syn/src/flow",
+    r"^(tools/OpenROAD/)?src/syn/test",
     r"^(tools/OpenROAD/)?src/tap/test",
     r"^(tools/OpenROAD/)?src/upf/test",
     r"^(tools/OpenROAD/)?src/web/test",
