@@ -193,6 +193,10 @@ skip_content_patterns = [
     r"^(tools/OpenROAD/)?src/drt/cmake", # .../intel/vtune
     r"^(tools/OpenROAD/)?src/gpl/README.md$",
     r"^(tools/OpenROAD/)?src/syn/BUILD$",
+    r"^(tools/OpenROAD/)?src/syn/src/CMakeLists.txt$",
+    r"^(tools/OpenROAD/)?src/syn/src/synthesis.cpp$",
+    r"^(tools/OpenROAD/)?src/syn/src/verific/CMakeLists.txt$",
+    r"^(tools/OpenROAD/)?src/syn/src/verific/driver.cc$",
     r"^(tools/OpenROAD/)?src/web/pnpm-lock.yaml$",
     r"^(tools/OpenROAD/)?src/web/test/pnpm-lock.yaml$",
     r"^(?:tools/OpenROAD/)?(?:src/sta/)?README.md$",
