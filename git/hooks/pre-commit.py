@@ -53,6 +53,7 @@ allowed_path_patterns = [
     r"^\.gitignore",
     r"^flow/\.gitignore",
     r"^flow/designs",
+    r"^flow/designs/.gitignore",
     r"^flow/docs",
     r"^flow/platforms/nangate45",
     r"^flow/platforms/sky130",
