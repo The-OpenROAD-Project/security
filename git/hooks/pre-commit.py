@@ -73,6 +73,7 @@ allowed_path_patterns = [
     r"^flow/MODULE\.bazel$",
     r"^flow/MODULE\.bazel\.lock$",
     r"^flow/WORKSPACE\.bazel$",
+    r"^flow/BUILD$",
     r"^flow/BUILD\.bazel$",
     r"^((tools/OpenROAD/)?src/odb/)?src/[ld]ef(56)?/TEST",
     r"^((tools/OpenROAD/)?src/odb/)?test",
