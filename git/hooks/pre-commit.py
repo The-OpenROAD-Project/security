@@ -60,6 +60,7 @@ allowed_path_patterns = [
     r"^flow/platforms/gf180",
     r"^flow/platforms/ihp-sg13g2",
     r"^flow/platforms/ihp-sg13cmos5l",
+    r"^flow/platforms/gt2n",
     r"^flow/platforms/common",
     r"^flow/scripts",
     r"^flow/settings.mk",
