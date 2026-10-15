@@ -206,6 +206,7 @@ skip_content_patterns = [
     r"^(tools/OpenROAD/)?src/syn/src/verific/CMakeLists.txt$",
     r"^(tools/OpenROAD/)?src/syn/src/verific/driver.cc$",
     r"^(tools/OpenROAD/)?src/web/dist/index.min.html$",
+    r"^(tools/OpenROAD/)?src/web/dist/index.html$",
     r"^(tools/OpenROAD/)?src/web/pnpm-lock.yaml$",
     r"^(tools/OpenROAD/)?src/web/test/pnpm-lock.yaml$",
     r"^(?:tools/OpenROAD/)?(?:src/sta/)?README.md$",
