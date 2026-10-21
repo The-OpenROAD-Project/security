@@ -511,9 +511,22 @@ def walk_error(e):
 
 def local(top, args):
     """Check the local tree not the git diff.  This is for private to
-    public prechecking. """
+    public prechecking.  Submodule contents are checked in their own repos.
+    """
+    index = subprocess.run(['git', 'ls-files', '--stage', '-z'],
+                           stdout=subprocess.PIPE, check=True).stdout
+    submodules = set()
+    for entry in index.split(b'\0'):
+        if entry:
+            metadata, path = entry.split(b'\t', 1)
+            if metadata.split()[0] == b'160000':
+                submodules.add(os.fsdecode(path))
+
     for root, dirs, files in os.walk(top,
                                      onerror=walk_error):
+        dirs[:] = [name for name in dirs
+                   if os.path.relpath(os.path.join(root, name), top)
+                   not in submodules]
         assert(root.startswith(top))
         if root == top:
             root = ''

@@ -4,6 +4,7 @@ import unittest
 import os
 import shutil
 import subprocess
+import sys
 
 precommit = __import__("pre-commit")
 
@@ -17,6 +18,8 @@ def run_command(command):
 
 # Dummy arguments object to pass to the precommit script
 args = precommit.parse_args([])
+precommit_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                              'pre-commit.py')
 
 
 class TestBlock(unittest.TestCase):
@@ -45,6 +48,18 @@ class TestBlock(unittest.TestCase):
         'Add cnt files to the repo'
         for i in range(cnt):
             self.add_file('file{}'.format(i))
+
+    def add_submodule(self, path):
+        subprocess.run([
+            'git', 'update-index', '--add', '--cacheinfo', '160000',
+            '1234567890123456789012345678901234567890', path], check=True)
+        os.makedirs(path)
+
+    def scan_local(self):
+        return subprocess.run(
+            [sys.executable, precommit_path, '--local'],
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            universal_newlines=True)
 
     def do_test_bad_file(self, path):
         'Create a file and make sure it is blocked by precommit path check'
@@ -161,6 +176,41 @@ class TestBlock(unittest.TestCase):
         with self.assertRaises(SystemExit) as e:
             precommit.main(args)
         self.assertIn('too many files changed', str(e.exception))
+
+    ## Local tree scans ##
+    def test_local_scan_skips_submodule_contents(self):
+        for path in ('third-party/sv-elab', 'vendor/with space'):
+            self.add_submodule(path)
+            for populated in (False, True):
+                with self.subTest(path=path, populated=populated):
+                    if populated:
+                        presets = os.path.join(path, 'third_party/slang')
+                        os.makedirs(presets)
+                        with open(os.path.join(presets, 'CMakePresets.json'), 'w') as f:
+                            f.write('{"name": "win64-arm-release"}\n')
+                        with open(os.path.join(path, 'blocked.v'), 'w') as f:
+                            f.write('module example; endmodule\n')
+                    result = self.scan_local()
+                    self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_local_scan_checks_parent_contents(self):
+        self.add_submodule('third-party/sv-elab')
+        for path in ('notes.txt', 'third-party/sv-elab-copy/CMakePresets.json'):
+            with self.subTest(path=path):
+                self.add_file(path, 'ARM Limited')
+                result = self.scan_local()
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('File {} contains blocked content'.format(path),
+                              result.stderr)
+                os.remove(path)
+
+    def test_local_scan_checks_untracked_contents(self):
+        self.add_file('.gitignore', 'ignored.txt')
+        with open('ignored.txt', 'w') as f:
+            f.write('ARM Limited\n')
+        result = self.scan_local()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('File ignored.txt contains blocked content', result.stderr)
 
     ## Blocked content tests ##
     def test_gf_content_fails(self):
