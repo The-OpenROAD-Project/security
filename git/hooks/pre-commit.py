@@ -132,6 +132,7 @@ allowed_path_patterns = [
     r"^(tools/OpenROAD/)?test",
     r"^(tools/OpenROAD/)?third-party/abc",
     r"^(tools/OpenROAD/)?third-party/slang-elab",
+    r"^(tools/OpenROAD/)?third-party/sv-elab",
     r"^tools/yosys",
     
     # OpenSTA
