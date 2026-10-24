@@ -90,6 +90,7 @@ allowed_path_patterns = [
     r"^(tools/OpenROAD/)?src/est/test",
     r"^(tools/OpenROAD/)?src/exa/test",
     r"^(tools/OpenROAD/)?src/fin/test",
+    r"^(tools/OpenROAD/)?src/fsv/test",
     r"^(tools/OpenROAD/)?src/gpl/test",
     r"^(tools/OpenROAD/)?src/gui/test",
     r"^(tools/OpenROAD/)?src/grt/test",
