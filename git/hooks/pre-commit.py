@@ -406,6 +406,26 @@ repos_secure = set((
     '(.*dfm:)?/home/zf4_projects/OpenROAD-guest/platforms/intel16.git',
 ))
 
+# When merging a commit that is already on the trusted branch of one of
+# these remotes, files carried in unchanged from that commit are not
+# counted against the file limits; that branch's content was reviewed
+# and checked when first committed.  The private OpenROAD and
+# OpenROAD-flow-scripts repos are included because their master
+# mirrors public master.  Each pattern must match the whole remote URL
+# (ignoring case, as GitHub does);
+# private PDK repos must never be listed here.
+#
+# Trust rests on the local remote URLs and remote-tracking refs, which
+# the user controls.  This guards against accidents, not a user set on
+# bypassing the limits (who can also use --no-verify); enforcing the
+# limits against that needs a server-side check.
+_github = r'(git@github\.com:|ssh://git@github\.com/|https://github\.com/)'
+trusted_merge_remotes = (
+    _github + r'The-OpenROAD-Project/OpenROAD(-flow-scripts)?(\.git)?/?',
+    _github + r'The-OpenROAD-Project-private/OpenROAD(-flow-scripts)?(\.git)?/?',
+)
+trusted_merge_branch = 'master'
+
 def error(msg):
     msg = '\n\nERROR: {}\n\nTo request an exception please file an issue on GitHub' \
       .format(msg)
@@ -413,10 +433,13 @@ def error(msg):
 
 
 def run_command(command):
+    '''Runs command and returns its output lines.  A list is run without a
+    shell; use one whenever an argument comes from a file name, remote
+    name or other outside data.'''
     r = subprocess.run(command,
                        stdout=subprocess.PIPE,
                        encoding='latin-1',
-                       shell=True)
+                       shell=isinstance(command, str))
     r.check_returncode()
 
     # Split the output into lines
@@ -467,7 +490,7 @@ def check_content(name, args, whole_file=False):
         # file, not what is currently on disk unstaged which could be
         # different (and possibly not contain the keyword).  We check the
         # whole file not just the changed portion.
-        lines = run_command('git show :{}'.format(name))
+        lines = run_command(['git', 'show', ':' + name])
     for cnt, line in enumerate(lines):
         # re.search matches anywhere in the line
         if re.search(block_content_patterns, line):
@@ -504,6 +527,50 @@ def parse_args(args):
     parser.add_argument('--report', action='store_true')
     parser.add_argument('--verbose', action='store_true')
     return parser.parse_args(args)
+
+
+def merge_heads():
+    'Returns the commits being merged, or [] when not merging.'
+    path = run_command(['git', 'rev-parse', '--git-path', 'MERGE_HEAD'])[0]
+    if not os.path.exists(path):
+        return []
+    with open(path) as f:
+        return f.read().split()  # an octopus merge lists several
+
+
+def is_trusted_commit(commit, args):
+    '''Is commit on trusted_merge_branch of a remote that matches
+    trusted_merge_remotes?'''
+    for remote in run_command(['git', 'remote']):
+        if not remote:
+            continue
+        url = run_command(['git', 'remote', 'get-url', remote])[0]
+        if not any(re.fullmatch(p, url, re.IGNORECASE)
+                   for p in trusted_merge_remotes):
+            continue
+        ref = 'refs/remotes/{}/{}'.format(remote, trusted_merge_branch)
+        r = subprocess.run(['git', 'merge-base', '--is-ancestor', '--', commit, ref],
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL)
+        if r.returncode == 0:
+            if args.verbose:
+                print('Merge head {} is on trusted {}'.format(commit, ref))
+            return True
+    return False
+
+
+def new_in_merge(names, args):
+    '''Returns the subset of names whose staged content differs from every
+    trusted merge head.  Outside a merge, returns names unchanged.'''
+    counted = set(names)
+    for head in merge_heads():
+        if is_trusted_commit(head, args):
+            differs = run_command(['git', 'diff', '--cached', '--name-only', head])
+            counted &= set(differs)
+        elif args.verbose:
+            print('Merge head {} is not on a trusted remote; counting all of its files'
+                  .format(head))
+    return counted
 
 
 def walk_error(e):
@@ -601,8 +668,16 @@ def main(args):
         assert(len(l) == 2)     # sanity check : <status> <file>
         assert(len(l[0]) == 1)  # sanity check : <status> is one char
 
+    # In a merge, files taken unchanged from a trusted merge head are not
+    # counted against the limits.  Every staged file still gets the path
+    # and content checks below.
+    counted = new_in_merge([f[1] for f in lines], args)
+    if args.report and len(counted) < len(lines):
+        print("Not counted (unchanged from a trusted merge head): {}"
+              .format(len(lines) - len(counted)))
+
     # Newly added files
-    added = [f[1] for f in lines if f[0] == 'A']
+    added = [f[1] for f in lines if f[0] == 'A' and f[1] in counted]
     num_added = len(added)
 
     # Deleted files
@@ -610,7 +685,8 @@ def main(args):
     num_deleted = len(deleted)
 
     # This is all other changes, including modify, rename, copy
-    num_changed = len(lines) - num_added - num_deleted
+    num_changed = len([f for f in lines
+                       if f[0] not in ('A', 'D') and f[1] in counted])
 
     if (args.report):
         print("Added {} (limit: {})".format(num_added, file_add_limit))
