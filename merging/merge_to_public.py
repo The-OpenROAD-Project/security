@@ -20,7 +20,7 @@ push = args.push
 print("push=",push)
 
 github_remote_prefix = "git@github.com:The-OpenROAD-Project/"
-private_remote_prefix = "git@github.com:The-OpenROAD-Project-Private/"
+private_remote_prefix = "git@github.com:The-OpenROAD-Project-private/"
 repo_names = ""
 repo_names_master_only = "OpenROAD.git OpenROAD-flow-scripts.git"
 
