@@ -658,9 +658,9 @@ def main(args):
         print('Nothing staged, nothing to scan')
         return
 
-    # Split the lines in status & file.  Filenames containing whitespace
-    # are problematic so don't do that.
-    lines = [l.split() for l in lines]
+    # Split the lines in status & file.  Fields are tab-separated, so
+    # filenames may contain spaces.
+    lines = [l.split('\t') for l in lines]
     for l in lines:
         if l[0].startswith('R'): # Handle renames
             assert(len(l) == 3)
