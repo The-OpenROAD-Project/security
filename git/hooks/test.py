@@ -178,6 +178,25 @@ class TestBlock(unittest.TestCase):
             precommit.main(args)
         self.assertIn('too many files changed', str(e.exception))
 
+    def test_many_golden_changes_ok(self):
+        cnt = precommit.file_change_limit + 1
+        names = ['t{}.ok'.format(i) if i % 2 else 't{}.defok'.format(i)
+                 for i in range(cnt)]
+        for name in names:
+            self.add_file(name)
+        run_command("git commit -m 'msg' --no-verify")
+        for name in names:
+            with open(name, 'w') as f:
+                print('modified', file=f)
+        run_command("git add .")
+        precommit.main(args)
+
+    def test_golden_file_pattern(self):
+        for name in ('a.ok', 'dir/a.defok', 'a.b.vok'):
+            self.assertTrue(precommit.is_golden_file(name), name)
+        for name in ('ok', 'book', 'a.ok.txt', 'dir.ok/a', 'a-ok.json'):
+            self.assertFalse(precommit.is_golden_file(name), name)
+
     ## Merges ##
     trusted_url = 'git@github.com:The-OpenROAD-Project/OpenROAD.git'
 

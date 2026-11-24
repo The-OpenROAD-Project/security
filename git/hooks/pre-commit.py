@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import fnmatch
 import gzip
 import hashlib
 import os
@@ -822,6 +823,11 @@ def pre_push(remote, url):
     print("Passed")
 
 
+def is_golden_file(name):
+    '''True for a test golden file such as foo.ok or foo.defok.'''
+    return fnmatch.fnmatch(os.path.basename(name), '*.*ok')
+
+
 def main(args):
     # subprocess.run doesn't exist before 3.5
     if sys.version_info < (3, 5):
@@ -897,9 +903,12 @@ def main(args):
     deleted = [f[1] for f in lines if f[0] == 'D']
     num_deleted = len(deleted)
 
-    # This is all other changes, including modify, rename, copy
+    # This is all other changes, including modify, rename, copy.  Test
+    # golden files (*.*ok, e.g. foo.ok, foo.defok) are not counted: a
+    # change that updates many of them is routine.
     num_changed = len([f for f in lines
-                       if f[0] not in ('A', 'D') and f[1] in counted])
+                       if f[0] not in ('A', 'D') and f[1] in counted
+                       and not is_golden_file(f[1])])
 
     if (args.report):
         print("Added {} (limit: {})".format(num_added, file_add_limit))
