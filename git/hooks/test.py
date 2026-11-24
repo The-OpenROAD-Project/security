@@ -18,8 +18,8 @@ def run_command(command):
 
 # Dummy arguments object to pass to the precommit script
 args = precommit.parse_args([])
-precommit_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                              'pre-commit.py')
+hooks_dir = os.path.dirname(os.path.abspath(__file__))
+precommit_path = os.path.join(hooks_dir, 'pre-commit.py')
 
 
 class TestBlock(unittest.TestCase):
@@ -338,6 +338,123 @@ class TestBlock(unittest.TestCase):
 
     def test_gf180_content_allowed(self):
         self.do_test_good_content('gf180 is public')
+
+    ## Commit message tests ##
+    def do_test_bad_message(self, text, **kwargs):
+        with self.assertRaises(SystemExit) as e:
+            precommit.check_message(text, **kwargs)
+        self.assertIn('Commit message contains blocked content',
+                      str(e.exception))
+
+    def git_commit(self, *options, env=None):
+        'Commit a file with the hooks of this directory installed'
+        self.add_file('file')
+        return subprocess.run(
+            ['git', '-c', 'core.hooksPath=' + hooks_dir, 'commit'] + list(options),
+            env=env,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            universal_newlines=True)
+
+    def has_commit(self):
+        r = subprocess.run(['git', 'rev-parse', '--verify', '--quiet', 'HEAD'],
+                           stdout=subprocess.DEVNULL)
+        return r.returncode == 0
+
+    def test_message_blocked_content_fails(self):
+        self.do_test_bad_message(
+            'rsz: plan fewer trees\n\n'
+            'Rapidus2HP, sizing on:\n  time (s): jpeg 193->66\n',
+            edited=False)
+
+    def test_message_ok(self):
+        precommit.check_message('rsz: plan fewer trees\n\ngf180 is public\n',
+                                edited=False)
+
+    def test_message_comments_checked_when_recorded(self):
+        text = 'subject\n\n# measured with tsmc\n'
+        precommit.check_message(text, edited=True)
+        self.do_test_bad_message(text, edited=False)
+        self.do_test_bad_message(text, edited=True, cleanup='whitespace')
+
+    def test_message_after_scissors_checked_when_recorded(self):
+        text = 'subject\n; {}\n+tsmc\n'.format(precommit.scissors.strip())
+        precommit.check_message(text, edited=True, cleanup='scissors',
+                                comment=';')
+        self.do_test_bad_message(text, edited=False, comment=';')
+
+    def test_commit_blocked_message_fails(self):
+        for options in (['-m', 'subject', '-m', 'measured on rapidus2hp'],
+                        ['-m', 'subject\n\n# measured on rapidus2hp']):
+            with self.subTest(options=options):
+                result = self.git_commit(*options)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('Commit message contains blocked content',
+                              result.stderr)
+                self.assertFalse(self.has_commit())
+
+    def test_messages_of_commits(self):
+        for i, message in enumerate(('base', 'measured on rapidus2hp', 'fix')):
+            self.add_file('file{}'.format(i))
+            subprocess.run(['git', 'commit', '-q', '--no-verify', '-m', message],
+                           check=True)
+        bad = subprocess.run(['git', 'rev-parse', '--short=12', 'HEAD~1'],
+                             stdout=subprocess.PIPE, check=True,
+                             universal_newlines=True).stdout.strip()
+
+        def scan(revision_range):
+            return subprocess.run(
+                [sys.executable, precommit_path, '--messages', revision_range],
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                universal_newlines=True)
+
+        result = scan('HEAD~2..HEAD')
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('Message of commit {} contains blocked content'.format(bad),
+                      result.stderr)
+        for clean in ('HEAD~1..HEAD', 'HEAD~2..HEAD~2'):
+            with self.subTest(revision_range=clean):
+                result = scan(clean)
+                self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertNotEqual(scan('no-such-ref..HEAD').returncode, 0)
+
+    def test_text_file(self):
+        # A path relative to a directory below the top of the repo
+        os.mkdir('sub')
+        for text, blocked in (('Speed up rsz\n\nMeasured on Rapidus2HP\n', True),
+                              ('Speed up rsz\n\ngf180 is public\n', False)):
+            with self.subTest(text=text):
+                with open('sub/description', 'w') as f:
+                    f.write(text)
+                result = subprocess.run(
+                    [sys.executable, precommit_path, '--text', 'description'],
+                    cwd='sub',
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                    universal_newlines=True)
+                self.assertEqual(result.returncode != 0, blocked, result.stderr)
+                if blocked:
+                    self.assertIn('Text in description contains blocked content'
+                                  ' on line 3', result.stderr)
+
+    def test_commit_good_message_ok(self):
+        result = self.git_commit('-m', 'subject')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue(self.has_commit())
+
+    def test_commit_edited_message_ignores_stripped_lines(self):
+        # The editor's template names the branch in a comment line and,
+        # with --verbose, shows the diff below the scissors line.
+        run_command("git checkout -q -b tsmc")
+        editor = os.path.abspath('.git/editor.sh')
+        with open(editor, 'w') as f:
+            f.write('{ echo subject; cat "$1"; } > "$1.new"\n'
+                    'grep -q "^# On branch tsmc" "$1.new" || exit 1\n'
+                    'grep -q "^+tsmc" "$1.new" || exit 1\n'
+                    'mv "$1.new" "$1"\n')
+        env = dict(os.environ, GIT_EDITOR='sh ' + editor)
+        self.add_file('README.md', 'tsmc')  # content checks skip this file
+        result = self.git_commit('--verbose', env=env)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue(self.has_commit())
 
 if __name__ == '__main__':
     unittest.main()

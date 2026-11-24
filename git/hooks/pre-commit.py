@@ -8,7 +8,13 @@ import re
 import subprocess
 import sys
 
-print("Running pre-commit security hook....")
+# Git runs this file as pre-commit, and through the commit-msg link with
+# the path of the commit message file.
+hook_name = os.path.basename(sys.argv[0])
+if hook_name != 'commit-msg':
+    hook_name = 'pre-commit'
+
+print("Running {} security hook....".format(hook_name))
 
 # Limits for rules
 file_add_limit    = 20
@@ -157,7 +163,7 @@ allowed_path_patterns = [
 # Files may not contain these patterns in their content anywhere (not
 # just the changed portion).  All staged files are checked, even
 # "allowed" files - there should still be no bad content in allowed
-# files.
+# files.  Commit messages may not contain them either.
 #
 # Uses compiled expression for performance.
 block_content_patterns = \
@@ -526,6 +532,12 @@ def is_blocked(name, args):
 def parse_args(args):
     parser = argparse.ArgumentParser(description='Commit checker')
     parser.add_argument('--local', action='store_true')
+    parser.add_argument('--messages', metavar='REVISION_RANGE',
+                        help='check the messages of these commits, '
+                        'e.g. origin/master..HEAD')
+    parser.add_argument('--text', metavar='FILE',
+                        help='check only the text in FILE, e.g. a pull '
+                        'request title or description')
     parser.add_argument('--report', action='store_true')
     parser.add_argument('--verbose', action='store_true')
     return parser.parse_args(args)
@@ -627,10 +639,81 @@ def check_remotes_secure():
             return False
     return True
 
+def git_config(key, default):
+    'Returns the value of the git config key, or default when it is unset.'
+    r = subprocess.run(['git', 'config', '--get', key],
+                       stdout=subprocess.PIPE,
+                       encoding='utf-8')
+    return r.stdout.rstrip('\n') if r.returncode == 0 else default
+
+
+# What follows the comment prefix on the line where git cuts off an
+# edited message (the diff shown by git commit --verbose comes after it).
+scissors = ' ------------------------ >8 ------------------------'
+
+
+def check_message(text, edited, cleanup='default', comment='#',
+                  name='Commit message'):
+    '''Checks commit message text for blocked content.  A message that
+    went through the editor is checked as git records it: without what
+    follows the scissors line and, when the cleanup mode strips them,
+    without comment lines.  Otherwise every line is checked, since git
+    records comment lines of a message given by -m or -F.'''
+    strip_comments = edited and cleanup in ('default', 'strip')
+    for cnt, line in enumerate(text.split('\n')):
+        if edited and line == comment + scissors:
+            break
+        if strip_comments and line.startswith(comment):
+            continue
+        if re.search(block_content_patterns, line):
+            msg = "{} contains blocked content" \
+                " on line {} :\n  {}" \
+                .format(name,
+                        cnt + 1,
+                        line)
+            error(msg)
+
+
+def check_messages(revision_range):
+    '''Checks the message of each commit in revision_range.  This is for
+    checking the commits a push would publish, which may not have been
+    made with the commit-msg hook installed.'''
+    commits = run_command(['git', 'rev-list', '--end-of-options', revision_range])
+    for commit in filter(None, commits):
+        lines = run_command(['git', 'log', '-1', '--format=%B', commit])
+        check_message('\n'.join(lines), edited=False,
+                      name='Message of commit {}'.format(commit[:12]))
+
+
+def commit_msg(path):
+    'The commit-msg hook.  Checks the commit message in the file at path.'
+    if check_remotes_secure():
+        print('All git remotes are secure, checking skipped')
+        return
+
+    with open(path, encoding='utf-8', errors='replace') as f:
+        text = f.read()
+
+    comment = git_config('core.commentString',
+                         git_config('core.commentChar', '#'))
+    # Git sets GIT_EDITOR=: for the hook when no editor is run.  The
+    # prefix git picks for "auto" is unknown here, so check every line.
+    edited = os.environ.get('GIT_EDITOR') != ':' and comment != 'auto'
+    check_message(text, edited, git_config('commit.cleanup', 'default'), comment)
+
+    print("Passed")
+
+
 def main(args):
     # subprocess.run doesn't exist before 3.5
     if sys.version_info < (3, 5):
         sys.exit("Python 3.5 or later is required")
+
+    if args.text:
+        with open(args.text, encoding='utf-8', errors='replace') as f:
+            check_message(f.read(), edited=False,
+                          name='Text in {}'.format(args.text))
+        return
 
     # Make sure this is running from the top level of the repo
     try:
@@ -644,8 +727,11 @@ def main(args):
         print('Running from {}'.format(top))
         os.chdir(top)
 
+    if args.messages:
+        check_messages(args.messages)
     if args.local:
         local(top, args)
+    if args.messages or args.local:
         return
 
     if check_remotes_secure():
@@ -726,5 +812,8 @@ def main(args):
 
 
 if __name__ == "__main__":
-    args = parse_args(sys.argv[1:])
-    main(args)
+    if hook_name == 'commit-msg':
+        commit_msg(sys.argv[1])
+    else:
+        args = parse_args(sys.argv[1:])
+        main(args)
