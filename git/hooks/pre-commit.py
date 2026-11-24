@@ -8,10 +8,11 @@ import re
 import subprocess
 import sys
 
-# Git runs this file as pre-commit, and through the commit-msg link with
-# the path of the commit message file.
+# Git runs this file as pre-commit and, through the links of those names,
+# as commit-msg with the path of the commit message file and as pre-push
+# with the name and URL of the remote.
 hook_name = os.path.basename(sys.argv[0])
-if hook_name != 'commit-msg':
+if hook_name not in ('commit-msg', 'pre-push'):
     hook_name = 'pre-commit'
 
 print("Running {} security hook....".format(hook_name))
@@ -163,7 +164,8 @@ allowed_path_patterns = [
 # Files may not contain these patterns in their content anywhere (not
 # just the changed portion).  All staged files are checked, even
 # "allowed" files - there should still be no bad content in allowed
-# files.  Commit messages may not contain them either.
+# files.  Commit messages and the names of pushed refs may not contain
+# them either.
 #
 # Uses compiled expression for performance.
 block_content_patterns = \
@@ -536,8 +538,8 @@ def parse_args(args):
                         help='check the messages of these commits, '
                         'e.g. origin/master..HEAD')
     parser.add_argument('--text', metavar='FILE',
-                        help='check only the text in FILE, e.g. a pull '
-                        'request title or description')
+                        help='check only the text in FILE (- for standard '
+                        'input), e.g. a pull request title or description')
     parser.add_argument('--report', action='store_true')
     parser.add_argument('--verbose', action='store_true')
     return parser.parse_args(args)
@@ -552,9 +554,19 @@ def merge_heads():
         return f.read().split()  # an octopus merge lists several
 
 
-def is_trusted_commit(commit, args):
-    '''Is commit on trusted_merge_branch of a remote that matches
-    trusted_merge_remotes?'''
+def is_commit(revision):
+    'Does revision name a commit that is in this repo?'
+    r = subprocess.run(['git', 'rev-parse', '--verify', '--quiet',
+                        '--end-of-options', revision + '^{commit}'],
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL)
+    return r.returncode == 0
+
+
+def trusted_refs():
+    '''Returns the remote-tracking ref of trusted_merge_branch for each
+    remote that matches trusted_merge_remotes and has that branch.'''
+    refs = []
     for remote in run_command(['git', 'remote']):
         if not remote:
             continue
@@ -563,6 +575,14 @@ def is_trusted_commit(commit, args):
                    for p in trusted_merge_remotes):
             continue
         ref = 'refs/remotes/{}/{}'.format(remote, trusted_merge_branch)
+        if is_commit(ref):
+            refs.append(ref)
+    return refs
+
+
+def is_trusted_commit(commit, args):
+    'Is commit on one of the trusted_refs?'
+    for ref in trusted_refs():
         r = subprocess.run(['git', 'merge-base', '--is-ancestor', '--', commit, ref],
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL)
@@ -643,8 +663,25 @@ def git_config(key, default):
     'Returns the value of the git config key, or default when it is unset.'
     r = subprocess.run(['git', 'config', '--get', key],
                        stdout=subprocess.PIPE,
-                       encoding='utf-8')
+                       encoding='utf-8', errors='replace')
     return r.stdout.rstrip('\n') if r.returncode == 0 else default
+
+
+def comment_prefix():
+    '''Returns the prefix of comment lines in an edited commit message, or
+    None when git picks one for each message ("auto").  To git,
+    core.commentChar and core.commentString are one setting and the last
+    one set wins.'''
+    r = subprocess.run(['git', 'config', '-z', '--get-regexp',
+                        r'^core\.comment(char|string)$'],
+                       stdout=subprocess.PIPE,
+                       encoding='utf-8', errors='replace')
+    # Each setting is "<key>\n<value>\0", in the order git reads them.
+    settings = [s for s in r.stdout.split('\0') if s]
+    if r.returncode != 0 or not settings:
+        return '#'
+    value = settings[-1].partition('\n')[2]
+    return None if value.lower() == 'auto' else value
 
 
 # What follows the comment prefix on the line where git cuts off an
@@ -652,37 +689,86 @@ def git_config(key, default):
 scissors = ' ------------------------ >8 ------------------------'
 
 
-def check_message(text, edited, cleanup='default', comment='#',
-                  name='Commit message'):
-    '''Checks commit message text for blocked content.  A message that
-    went through the editor is checked as git records it: without what
-    follows the scissors line and, when the cleanup mode strips them,
-    without comment lines.  Otherwise every line is checked, since git
-    records comment lines of a message given by -m or -F.'''
+def message_problems(text, edited=False, cleanup='default', comment='#',
+                     name='Commit message'):
+    '''Returns a description of each line of commit message text that
+    has blocked content.  A message that went through the editor is
+    checked as git records it: without what git cuts off at the scissors
+    line and, when the cleanup mode strips them, without comment lines.
+    Otherwise every line is checked, since git records comment lines of
+    a message given by -m or -F.
+
+    The commit-msg hook cannot see the --cleanup and --verbose options
+    of git commit, so this follows the config; the pre-push hook checks
+    the messages that were recorded.'''
+    lines = text.split('\n')
+    end = len(lines)
+    if edited and comment + scissors in lines:
+        cut = lines.index(comment + scissors)
+        if cleanup == 'scissors':
+            end = cut
+        else:
+            # Git cuts here only for commit --verbose.  Take a diff that
+            # follows the line, after comment lines only, as the sign of
+            # it; otherwise git records the lines below as written.
+            for i in range(cut + 1, len(lines)):
+                if lines[i].startswith('diff --git '):
+                    end = i
+                    break
+                if not lines[i].startswith(comment):
+                    break
+
     strip_comments = edited and cleanup in ('default', 'strip')
-    for cnt, line in enumerate(text.split('\n')):
-        if edited and line == comment + scissors:
-            break
+    problems = []
+    for cnt, line in enumerate(lines[:end]):
         if strip_comments and line.startswith(comment):
             continue
         if re.search(block_content_patterns, line):
-            msg = "{} contains blocked content" \
-                " on line {} :\n  {}" \
-                .format(name,
-                        cnt + 1,
-                        line)
-            error(msg)
+            problems.append("{} contains blocked content"
+                            " on line {} :\n  {}"
+                            .format(name,
+                                    cnt + 1,
+                                    line))
+    return problems
+
+
+def fail_on(problems):
+    'Reports all of the problems as one error, if there are any.'
+    if problems:
+        error('\n\n'.join(problems))
+
+
+def check_message(text, edited, cleanup='default', comment='#',
+                  name='Commit message'):
+    'Fails if the commit message text has any of the message_problems.'
+    fail_on(message_problems(text, edited, cleanup, comment, name))
+
+
+def commit_message_problems(revisions, what):
+    '''Returns the message_problems of each commit that git log lists
+    for the revisions arguments; what describes them in an error.'''
+    r = subprocess.run(['git', 'log', '--no-show-signature',
+                        '--encoding=UTF-8', '--format=%H%n%B%x00'] + revisions,
+                       stdout=subprocess.PIPE,
+                       encoding='utf-8', errors='replace')
+    if r.returncode != 0:
+        sys.exit('\n\nERROR: cannot list {}'.format(what))
+
+    problems = []
+    for record in r.stdout.split('\0'):
+        commit, _, message = record.lstrip('\n').partition('\n')
+        if commit:
+            problems += message_problems(
+                message, name='Message of commit {}'.format(commit[:12]))
+    return problems
 
 
 def check_messages(revision_range):
     '''Checks the message of each commit in revision_range.  This is for
     checking the commits a push would publish, which may not have been
     made with the commit-msg hook installed.'''
-    commits = run_command(['git', 'rev-list', '--end-of-options', revision_range])
-    for commit in filter(None, commits):
-        lines = run_command(['git', 'log', '-1', '--format=%B', commit])
-        check_message('\n'.join(lines), edited=False,
-                      name='Message of commit {}'.format(commit[:12]))
+    fail_on(commit_message_problems(['--end-of-options', revision_range],
+                                    'the commits of ' + revision_range))
 
 
 def commit_msg(path):
@@ -694,12 +780,44 @@ def commit_msg(path):
     with open(path, encoding='utf-8', errors='replace') as f:
         text = f.read()
 
-    comment = git_config('core.commentString',
-                         git_config('core.commentChar', '#'))
+    comment = comment_prefix()
     # Git sets GIT_EDITOR=: for the hook when no editor is run.  The
     # prefix git picks for "auto" is unknown here, so check every line.
-    edited = os.environ.get('GIT_EDITOR') != ':' and comment != 'auto'
-    check_message(text, edited, git_config('commit.cleanup', 'default'), comment)
+    edited = os.environ.get('GIT_EDITOR') != ':' and comment is not None
+    check_message(text, edited, git_config('commit.cleanup', 'default'),
+                  comment or '#')
+
+    print("Passed")
+
+
+def pre_push(remote, url):
+    '''The pre-push hook.  Checks the name of each ref pushed to the
+    remote at url and the messages of the commits the push publishes:
+    those that are on neither a remote-tracking ref of the remote nor one
+    of the trusted_refs.  This reads the messages as recorded, and covers
+    commits that never ran the commit-msg hook (cherry-pick, rebase,
+    --no-verify).'''
+    if any(re.match(pattern, url) for pattern in repos_secure):
+        print('Pushing to a secure remote, checking skipped')
+        return
+
+    published = ['--remotes=' + remote] + trusted_refs()
+    problems = []
+    # Git gives a line for each ref on stdin:
+    # <local ref> <local object> <remote ref> <remote object>
+    for line in sys.stdin:
+        _, local, remote_ref, remote_object = line.split()
+        if set(local) == {'0'}:  # deletes the remote ref
+            continue
+        if re.search(block_content_patterns, remote_ref):
+            problems.append("Name of pushed ref contains blocked content :\n  {}"
+                            .format(remote_ref))
+        revisions = [local, '--not'] + published
+        if is_commit(remote_object):  # absent for a new ref or when not fetched
+            revisions.append(remote_object)
+        problems += commit_message_problems(
+            revisions, 'the commits pushed to {}'.format(remote_ref))
+    fail_on(problems)
 
     print("Passed")
 
@@ -710,9 +828,15 @@ def main(args):
         sys.exit("Python 3.5 or later is required")
 
     if args.text:
-        with open(args.text, encoding='utf-8', errors='replace') as f:
-            check_message(f.read(), edited=False,
-                          name='Text in {}'.format(args.text))
+        if args.text == '-':
+            text = sys.stdin.buffer.read().decode('utf-8', errors='replace')
+            name = 'Text on standard input'
+        else:
+            with open(args.text, encoding='utf-8', errors='replace') as f:
+                text = f.read()
+            name = 'Text in {}'.format(args.text)
+        check_message(text, edited=False, name=name)
+        print("Passed")
         return
 
     # Make sure this is running from the top level of the repo
@@ -732,6 +856,7 @@ def main(args):
     if args.local:
         local(top, args)
     if args.messages or args.local:
+        print("Passed")
         return
 
     if check_remotes_secure():
@@ -814,6 +939,8 @@ def main(args):
 if __name__ == "__main__":
     if hook_name == 'commit-msg':
         commit_msg(sys.argv[1])
+    elif hook_name == 'pre-push':
+        pre_push(sys.argv[1], sys.argv[2])
     else:
         args = parse_args(sys.argv[1:])
         main(args)
